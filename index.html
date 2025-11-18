@@ -7,12 +7,7 @@
     <title>Sunny Town - Luxury Sunglasses</title>
 
     <style>
-/* -------------------- COLORES DEL BANNER --------------------
-   Verde menta:        #A7EBC1
-   Morado oscuro:      #2E2A59
-   Azul grisáceo:      #9FBEC2 → #6D87A3 (degradado)
-------------------------------------------------------------- */
-
+/* -------------------- COLORES DEL BANNER -------------------- */
 body {
     font-family: "Georgia", serif;
     background: linear-gradient(180deg, #9FBEC2, #6D87A3);
@@ -21,45 +16,127 @@ body {
     color: #A7EBC1;
 }
 
-/* -------------------- HEADER -------------------- */
-
-header {
-    text-align: center;
-    padding: 40px 0 20px;
-}
-
-.logo {
-    max-width: 300px;
+/* -------------------- NAVBAR -------------------- */
+.navbar {
     width: 100%;
-    height: auto;
-    display: block;
+    background: transparent;
+    backdrop-filter: blur(6px);
+    padding: 10px 0;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+}
+
+.navbar-container {
+    max-width: 1200px;
     margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    width: 90%;
+    padding: 0 20px;
 }
 
-h1 {
-    font-size: 48px;
-    letter-spacing: 3px;
+.nav-left img {
+    width: 140px;
+    height: auto;
+}
+
+.nav-center-space {
+    flex: 1;
+}
+
+.nav-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+}
+
+.nav-right a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-family: Arial, sans-serif;
+    transition: 0.2s;
+}
+
+.nav-right a:hover {
     color: #A7EBC1;
-    text-shadow: 0px 3px 6px rgba(0,0,0,0.4);
+    transform: scale(1.1);
 }
 
-.subtitle {
-    margin-top: -10px;
-    font-size: 16px;
-    letter-spacing: 3px;
-    font-family: "Arial", sans-serif;
-    color: #E9FFE9;
+/* -------------------- HERO SECTION -------------------- */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    padding: 60px;
+    box-sizing: border-box;
+    overflow: visible;
+    margin-top: -80px; 
+}
+
+.hero-content { 
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hero-content h1 {
+    font-size: 58px;
+    margin: 0;
+    font-weight: bold;
+    color: white;
+}
+
+.hero-content h2 {
+    font-size: 28px;
+    margin: 0;
+    color: #2E2A59;
+}
+
+.hero-content button {
+    background: #A7EBC1;
+    color: #2E2A59;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hero-content button:hover {
+    opacity: .8;
+}
+
+.hero-girl {
+    position: absolute;
+    bottom: 0;
+    right: 40px;
+    height: 90%;
+    object-fit: contain;
+    pointer-events: none;
 }
 
 /* -------------------- GALERÍA -------------------- */
-
 .gallery {
-    max-width: 1200px;
-    margin: auto;
-    padding: 30px;
+    width: 100%;
+    padding: 0 10px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(5, 1fr); /* ← AQUÍ ESTÁ LA CLAVE */
+    gap: 25px;
+    justify-items: center;
 }
 
 .product {
@@ -71,44 +148,42 @@ h1 {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
-    background: #2E2A59; /* Morado del banner */
+    background: #2E2A59;
+    height: 250px;
+    width: 100%;
 }
 
 .image-container img {
     width: 100%;
-    display: block;
-    transition: transform 0.3s ease;
+    height: 100%;
+    object-fit: contain;
 }
 
 .image-container:hover img {
-    transform: scale(1.05);
+    transform: scale(1.07);
 }
 
-/* -------------------- BOTÓN -------------------- */
-
+/* BOTÓN */
 .buy-btn {
     position: absolute;
     bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
-    background: #A7EBC1; /* Verde menta */
-    color: #2E2A59;       /* Morado */
+    background: #A7EBC1;
+    color: #2E2A59;
     padding: 10px 30px;
     border: none;
-    font-family: Arial, sans-serif;
     letter-spacing: 1px;
     cursor: pointer;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 5px;
+    transition: .3s ease;
+    border-radius: 6px;
     font-weight: bold;
 }
 
 .image-container:hover .buy-btn {
     opacity: 1;
 }
-
-/* -------------------- TEXTOS DE PRODUCTO -------------------- */
 
 h3 {
     font-size: 22px;
@@ -121,60 +196,119 @@ h3 {
     font-size: 16px;
     color: #A7EBC1;
 }
-
     </style>
 
 </head>
 
 <body>
 
-    <header>
-        <!-- Pon aquí tu logo (mismo que sale en el banner) -->
-        <img src="logo.png" class="logo" alt="Logo Sunny Town">
+<!-- ---------------------- NAV ---------------------- -->
+<nav class="navbar">
+    <div class="navbar-container">
 
-        <h1>SUNNY TOWN</h1>
-        <p class="subtitle">LUXURY SUNGLASSES</p>
-    </header>
-
-    <section class="gallery">
-
-        <div class="product">
-            <div class="image-container">
-                <img src="lentes1.png" alt="Prada Cat Eye">
-                <button class="buy-btn">Comprar</button>
-            </div>
-            <h3>Prada Cat Eye</h3>
-            <p class="price">$350</p>
+        <div class="nav-left">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/logotrans.png" class="nav-logo" alt="Logo Sunny Town">
         </div>
 
-        <div class="product">
-            <div class="image-container">
-                <img src="lentes2.png" alt="Gucci Round">
-                <button class="buy-btn">Comprar</button>
-            </div>
-            <h3>Gucci Round</h3>
-            <p class="price">$470</p>
+        <div class="nav-center-space"></div>
+
+        <div class="nav-right">
+            <a href="#home">Inicio</a>
+            <a href="#lentes">Lentes</a>
+            <a href="#contacto">Contacto</a>
         </div>
 
-        <div class="product">
-            <div class="image-container">
-                <img src="lentes3.jpg" alt="Ray-Ban Aviator">
-                <button class="buy-btn">Comprar</button>
-            </div>
-            <h3>Ray-Ban Aviator</h3>
-            <p class="price">$230</p>
-        </div>
+    </div>
+</nav>
 
-        <div class="product">
-            <div class="image-container">
-                <img src="lentes4.jpg" alt="Dior Square">
-                <button class="buy-btn">Comprar</button>
-            </div>
-            <h3>Dior Square</h3>
-            <p class="price">$410</p>
-        </div>
+<!-- ---------------------- HERO ---------------------- -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Los mejores lentes de sol</h1>
+        <h2>Para tu día a día</h2>
+        <button>Comprar ahora</button>
+    </div>
 
-    </section>
+    <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/fotohero.png" class="hero-girl" alt="Modelo con lentes">
+</section>
+
+<!-- ---------------------- GALERÍA ---------------------- -->
+<section class="gallery">
+
+    <div class="product">
+        <div class="image-container">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/lentes1.png" alt="Prada Cat Eye">
+            <button class="buy-btn">Comprar</button>
+        </div>
+        <h3>Prada Cat Eye</h3>
+        <p class="price">$350</p>
+    </div>
+
+    <div class="product">
+        <div class="image-container">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/lentes2.png" alt="Gucci Round">
+            <button class="buy-btn">Comprar</button>
+        </div>
+        <h3>Gucci Round</h3>
+        <p class="price">$470</p>
+    </div>
+
+    <div class="product">
+        <div class="image-container">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/lentes3.jpg" alt="Ray-Ban Aviator">
+            <button class="buy-btn">Comprar</button>
+        </div>
+        <h3>Ray-Ban Aviator</h3>
+        <p class="price">$230</p>
+    </div>
+
+    <div class="product">
+        <div class="image-container">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/lentes4.jpg" alt="Dior Square">
+            <button class="buy-btn">Comprar</button>
+        </div>
+        <h3>Dior Square</h3>
+        <p class="price">$410</p>
+    </div>
+
+    <!-- Extra products -->
+    <div class="product">
+        <div class="image-container">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/lentes4.jpg" alt="Dior Square">
+            <button class="buy-btn">Comprar</button>
+        </div>
+        <h3>Dior Square</h3>
+        <p class="price">$410</p>
+    </div>
+
+    <div class="product">
+        <div class="image-container">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/lentes4.jpg" alt="Dior Square">
+            <button class="buy-btn">Comprar</button>
+        </div>
+        <h3>Dior Square</h3>
+        <p class="price">$410</p>
+    </div>
+
+    <div class="product">
+        <div class="image-container">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/lentes4.jpg" alt="Dior Square">
+            <button class="buy-btn">Comprar</button>
+        </div>
+        <h3>Dior Square</h3>
+        <p class="price">$410</p>
+    </div>
+
+    <div class="product">
+        <div class="image-container">
+            <img src="/Users/paultrujillo/Desktop/Paul Trujillo/SunnyTown/fotoslentes/lentes4.jpg" alt="Dior Square">
+            <button class="buy-btn">Comprar</button>
+        </div>
+        <h3>Dior Square</h3>
+        <p class="price">$410</p>
+    </div>
+
+</section>
 
 </body>
 </html>
