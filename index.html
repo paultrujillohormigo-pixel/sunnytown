@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunny Town - Luxury Sunglasses</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+body {
+    font-family: "Georgia", serif;
+    background: #f7f2e9;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+header {
+    text-align: center;
+    padding: 40px 0 20px;
+}
+
+h1 {
+    font-size: 48px;
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    margin-top: -10px;
+    font-size: 16px;
+    letter-spacing: 3px;
+    font-family: "Arial", sans-serif;
+}
+
+.gallery {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.product {
+    text-align: center;
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.image-container img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+}
+
+.buy-btn {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 10px 30px;
+    border: 2px solid black;
+    font-family: Arial, sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-container:hover .buy-btn {
+    opacity: 1;
+}
+
+h3 {
+    font-size: 22px;
+    margin: 15px 0 5px;
+}
+
+.price {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+    </style>
+
+
+
+</head>
+<body>
+
+    <header>
+        <h1>SUNNY TOWN</h1>
+        <p class="subtitle">LUXURY SUNGLASSES</p>
+    </header>
+
+    <section class="gallery">
+
+        <div class="product">
+            <div class="image-container">
+                <img src="https://i.imgur.com/6c2OeLX.png" alt="Prada Cat Eye">
+                <button class="buy-btn">Comprar</button>
+            </div>
+            <h3>Prada Cat Eye</h3>
+            <p class="price">$350</p>
+        </div>
+
+        <div class="product">
+            <div class="image-container">
+                <img src="https://i.imgur.com/7e0s6qO.png" alt="Gucci Round">
+                <button class="buy-btn">Comprar</button>
+            </div>
+            <h3>Gucci Round</h3>
+            <p class="price">$470</p>
+        </div>
+
+        <div class="product">
+            <div class="image-container">
+                <img src="https://i.imgur.com/LnhQHRE.png" alt="Ray-Ban Aviator">
+                <button class="buy-btn">Comprar</button>
+            </div>
+            <h3>Ray-Ban Aviator</h3>
+            <p class="price">$230</p>
+        </div>
+
+        <div class="product">
+            <div class="image-container">
+                <img src="https://i.imgur.com/mUuVVrh.png" alt="Dior Square">
+                <button class="buy-btn">Comprar</button>
+            </div>
+            <h3>Dior Square</h3>
+            <p class="price">$410</p>
+        </div>
+
+    </section>
+
+</body>
+</html>
