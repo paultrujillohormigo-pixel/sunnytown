@@ -138,29 +138,50 @@ body {
     gap: 25px;
     justify-items: center;
 }
-
-.product {
-    text-align: center;
-    color: #A7EBC1;
-}
-
-.image-container {
-    position: relative;
+.gallery-item {
+    background: #ffffff;
+    border-radius: 18px;
     overflow: hidden;
-    border-radius: 10px;
-    background: #2E2A59;
-    height: 250px;
-    width: 100%;
+    box-shadow: 0px 4px 14px rgba(0,0,0,0.08);
+    transition: all .3s ease;
+    cursor: pointer;
 }
 
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.gallery-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 12px 25px rgba(0,0,0,0.12);
 }
 
-.image-container:hover img {
-    transform: scale(1.07);
+.gallery-item img {
+    width: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.gallery-item .info {
+    padding: 18px 14px;
+    text-align: center;
+}
+
+.gallery-item h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.5px;
+    color: #111;
+    font-family: "Poppins", sans-serif;
+}
+
+.gallery-item .price {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+    background: #f6f6f6;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-family: "Poppins", sans-serif;
 }
 
 /* BOTÓN */
@@ -235,78 +256,70 @@ h3 {
 <!-- ---------------------- GALERÍA ---------------------- -->
 <section class="gallery">
 
-    <div class="product">
-        <div class="image-container">
-            <img src="lentes4.png" alt="Prada Cat Eye">
-            <button class="buy-btn">Comprar</button>
-        </div>
-        <h3>Prada Cat Eye</h3>
-        <p class="price">$350</p>
+    <div class="gallery-item">
+    <img src="lente4.jpg" alt="Lentes modelo X">
+    <div class="info">
+        <h3>Modelo Aurora</h3>
+        <span class="price">$799 MXN</span>
     </div>
+</div>
 
-    <div class="product">
-        <div class="image-container">
-            <img src="lentes4.png" alt="Gucci Round">
-            <button class="buy-btn">Comprar</button>
-        </div>
-        <h3>Gucci Round</h3>
-        <p class="price">$470</p>
+    <div class="gallery-item">
+    <img src="lente4.jpg" alt="Lentes modelo X">
+    <div class="info">
+        <h3>Modelo Aurora</h3>
+        <span class="price">$799 MXN</span>
     </div>
+</div>
 
-    <div class="product">
-        <div class="image-container">
-            <img src="lentes4.jpg" alt="Ray-Ban Aviator">
-            <button class="buy-btn">Comprar</button>
-        </div>
-        <h3>Ray-Ban Aviator</h3>
-        <p class="price">$230</p>
+    <div class="gallery-item">
+    <img src="lente4.jpg" alt="Lentes modelo X">
+    <div class="info">
+        <h3>Modelo Aurora</h3>
+        <span class="price">$799 MXN</span>
     </div>
+</div>
 
-    <div class="product">
-        <div class="image-container">
-            <img src="lentes4.jpg" alt="Dior Square">
-            <button class="buy-btn">Comprar</button>
-        </div>
-        <h3>Dior Square</h3>
-        <p class="price">$410</p>
+   <div class="gallery-item">
+    <img src="lente4.jpg" alt="Lentes modelo X">
+    <div class="info">
+        <h3>Modelo Aurora</h3>
+        <span class="price">$799 MXN</span>
     </div>
+</div>
 
     <!-- Extra products -->
-    <div class="product">
-        <div class="image-container">
-            <img src="lentes4.jpg" alt="Dior Square">
-            <button class="buy-btn">Comprar</button>
-        </div>
-        <h3>Dior Square</h3>
-        <p class="price">$410</p>
+    <div class="gallery-item">
+    <img src="lente4.jpg" alt="Lentes modelo X">
+    <div class="info">
+        <h3>Modelo Aurora</h3>
+        <span class="price">$799 MXN</span>
     </div>
+</div>
 
-    <div class="product">
-        <div class="image-container">
-            <img src="lentes4.jpg" alt="Dior Square">
-            <button class="buy-btn">Comprar</button>
-        </div>
-        <h3>Dior Square</h3>
-        <p class="price">$410</p>
+    <div class="gallery-item">
+    <img src="lente4.jpg" alt="Lentes modelo X">
+    <div class="info">
+        <h3>Modelo Aurora</h3>
+        <span class="price">$799 MXN</span>
     </div>
+</div>
 
-    <div class="product">
-        <div class="image-container">
-            <img src="lentes4.jpg" alt="Dior Square">
-            <button class="buy-btn">Comprar</button>
-        </div>
-        <h3>Dior Square</h3>
-        <p class="price">$410</p>
+    <div class="gallery-item">
+    <img src="lente4.jpg" alt="Lentes modelo X">
+    <div class="info">
+        <h3>Modelo Aurora</h3>
+        <span class="price">$799 MXN</span>
     </div>
+</div>
 
-    <div class="product">
-        <div class="image-container">
-            <img src="lentes4.jpg" alt="Dior Square">
-            <button class="buy-btn">Comprar</button>
-        </div>
-        <h3>Dior Square</h3>
-        <p class="price">$410</p>
+    <div class="gallery-item">
+    <img src="lente4.jpg" alt="Lentes modelo X">
+    <div class="info">
+        <h3>Modelo Aurora</h3>
+        <span class="price">$799 MXN</span>
     </div>
+</div>
 
 </section>
 
