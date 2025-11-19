@@ -5,9 +5,11 @@ import os
 import cloudinary
 import cloudinary.uploader
 
-# Configurar Cloudinary automáticamente usando la variable CLOUDINARY_URL
 cloudinary.config(
-    cloudinary_url=os.getenv("CLOUDINARY_URL")
+    cloud_name="dnzkctdej",
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+    secure=True
 )
 
 app = Flask(__name__)
