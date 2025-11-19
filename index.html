@@ -133,17 +133,17 @@ body {
 
 /* -------------------- GALERÍA -------------------- */
 .gallery {
-    margin-top: 80px; /* 👈 espacio elegante entre hero y galería */
     width: 100%;
     padding: 0 10px;
-    margin: 0 auto;
+    margin: 80px auto 0 auto; /* ← top 80px, centrado horizontal */
     box-sizing: border-box;
 
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* ← AQUÍ ESTÁ LA CLAVE */
+    grid-template-columns: repeat(4, 1fr);
     gap: 25px;
     justify-items: center;
 }
+
 .gallery-item {
     background: #ffffff;
     border-radius: 18px;
