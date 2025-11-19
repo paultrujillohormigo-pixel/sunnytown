@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import mysql.connector
+import pymysql
 from config import DB_CONFIG
 import os
 
@@ -10,12 +10,13 @@ app.config['UPLOAD_FOLDER'] = 'fotoslentes'
 
 # Conexión a DB
 def conectar_db():
-    return mysql.connector.connect(
+    return pymysql.connect(
         host=DB_CONFIG["host"],
-        port=DB_CONFIG["port"],
+        port=int(DB_CONFIG["port"]),
         user=DB_CONFIG["user"],
         password=DB_CONFIG["password"],
-        database=DB_CONFIG["database"]
+        database=DB_CONFIG["database"],
+        cursorclass=pymysql.cursors.DictCursor
     )
 
 # Ruta principal para subir productos
