@@ -34,28 +34,31 @@ def add_product():
         descripcion = request.form['description']
         precio = float(request.form['price'])
         categoria = request.form['category']
-        
-        # Guardar imagen en fotoslentes
+
+        # SUBIR A CLOUDINARY
         imagen_file = request.files['image']
-        imagen_path = os.path.join(app.config['UPLOAD_FOLDER'], imagen_file.filename)
-        imagen_file.save(imagen_path)
-        
-        # Insertar producto en DB
+        subida = cloudinary.uploader.upload(imagen_file, folder="sunnytown")
+
+        # URL pública de la imagen
+        imagen_url = subida["secure_url"]
+
+        # Guardar en DB
         db = conectar_db()
         cursor = db.cursor()
         sql = """
         INSERT INTO products (name, description, price, category, main_image)
         VALUES (%s, %s, %s, %s, %s)
         """
-        valores = (nombre, descripcion, precio, categoria, imagen_path)
+        valores = (nombre, descripcion, precio, categoria, imagen_url)
         cursor.execute(sql, valores)
         db.commit()
         cursor.close()
         db.close()
-        
+
         return redirect(url_for('add_product'))
-    
+
     return render_template('add_product.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
