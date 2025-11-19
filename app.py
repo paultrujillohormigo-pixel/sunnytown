@@ -1,14 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymysql
 from config import DB_CONFIG
+import os
 import cloudinary
 import cloudinary.uploader
 
-# CONFIG DE CLOUDINARY
+# Configurar Cloudinary automáticamente usando la variable CLOUDINARY_URL
 cloudinary.config(
-    cloud_name="TU_CLOUD_NAME",
-    api_key="TU_API_KEY",
-    api_secret="TU_API_SECRET"
+    cloudinary_url=os.getenv("CLOUDINARY_URL")
 )
 
 app = Flask(__name__)
@@ -24,7 +23,7 @@ def conectar_db():
         cursorclass=pymysql.cursors.DictCursor
     )
 
-# Ruta principal para subir productos
+# Ruta para subir productos
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
     if request.method == 'POST':
@@ -36,9 +35,11 @@ def add_product():
         # SUBIR A CLOUDINARY
         imagen_file = request.files['image']
         subida = cloudinary.uploader.upload(imagen_file, folder="sunnytown")
+
+        # URL pública de la imagen
         imagen_url = subida["secure_url"]
 
-        # Guardar en DB
+        # Guardar producto en DB
         db = conectar_db()
         cursor = db.cursor()
         sql = """
@@ -58,4 +59,3 @@ def add_product():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
