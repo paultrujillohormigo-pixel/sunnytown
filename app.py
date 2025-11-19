@@ -1,19 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymysql
 from config import DB_CONFIG
-import os
 import cloudinary
 import cloudinary.uploader
 
+# CONFIG DE CLOUDINARY
 cloudinary.config(
     cloud_name="TU_CLOUD_NAME",
     api_key="TU_API_KEY",
     api_secret="TU_API_SECRET"
 )
-app = Flask(__name__)
 
-# Carpeta donde guardamos imágenes
-app.config['UPLOAD_FOLDER'] = 'fotoslentes'
+app = Flask(__name__)
 
 # Conexión a DB
 def conectar_db():
@@ -38,8 +36,6 @@ def add_product():
         # SUBIR A CLOUDINARY
         imagen_file = request.files['image']
         subida = cloudinary.uploader.upload(imagen_file, folder="sunnytown")
-
-        # URL pública de la imagen
         imagen_url = subida["secure_url"]
 
         # Guardar en DB
@@ -62,3 +58,4 @@ def add_product():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
