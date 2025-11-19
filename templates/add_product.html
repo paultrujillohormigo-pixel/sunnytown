@@ -14,7 +14,7 @@ button:hover { opacity: 0.9; }
 </head>
 <body>
 <h2 style="text-align:center;">Agregar Producto Nuevo</h2>
-<form method="POST" enctype="multipart/form-data">
+<form action="/add_product" method="POST" enctype="multipart/form-data">
     <input type="text" name="name" placeholder="Nombre del producto" required>
     <textarea name="description" placeholder="Descripción"></textarea>
     <input type="number" name="price" placeholder="Precio" step="0.01" required>
