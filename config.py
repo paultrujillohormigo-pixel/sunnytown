@@ -1,10 +1,9 @@
 import os
 
 
-DB_CONFIG = 
+DB_CONFIG = {
     
     "host": os.getenv("DB_HOST") or os.getenv("MYSQL_HOST"),
-    
     "port": int(os.getenv("DB_PORT") or os.getenv("MYSQL_PORT")),
     "user": os.getenv("DB_USER") or os.getenv("MYSQL_USER"),
     "password": os.getenv("DB_PASSWORD") or os.getenv("MYSQL_PASSWORD"),
