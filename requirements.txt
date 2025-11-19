@@ -2,4 +2,4 @@ Flask
 PyMySQL
 python-dotenv
 gunicorn
-pip install cloudinary
+cloudinary
