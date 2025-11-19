@@ -6,10 +6,7 @@ import cloudinary
 import cloudinary.uploader
 
 cloudinary.config(
-    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
-    api_key=os.getenv("CLOUDINARY_API_KEY"),
-    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
-    secure=True
+    cloudinary_url=os.getenv("CLOUDINARY_URL")
 )
 
 app = Flask(__name__)
@@ -34,13 +31,13 @@ def add_product():
         precio = float(request.form['price'])
         categoria = request.form['category']
 
-        # SUBIR A CLOUDINARY
+        
+        # Subir imagen a Cloudinary
         imagen_file = request.files['image']
         subida = cloudinary.uploader.upload(imagen_file, folder="sunnytown")
-
-        # URL pública de la imagen
         imagen_url = subida["secure_url"]
-
+      
+        
         # Guardar producto en DB
         db = conectar_db()
         cursor = db.cursor()
