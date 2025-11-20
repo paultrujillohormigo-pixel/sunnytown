@@ -98,7 +98,10 @@ def crear_pago():
     title = data.get("title", "Producto")
 
     sdk = mercadopago.SDK("APP_USR-4062760235903-112018-12059659646503501b5039e406779672-216274319")
+    
 
+
+    
     preference_data = {
         "items": [{
             "title": title,
@@ -114,6 +117,7 @@ def crear_pago():
     }
 
     preference = sdk.preference().create(preference_data)
+    print("DEBUG MP RESPONSE:", preference)  # ← Important
     link = preference["response"]["init_point"]
 
     return {"link": link}
