@@ -35,11 +35,12 @@ def obtener_productos(search=None):
 @products_bp.route("/add", methods=["GET", "POST"])
 def add_product():
     if request.method == "POST":
+        categoria = request.form["code"]
         nombre = request.form["name"]
         descripcion = request.form["description"]
         precio = float(request.form["price"])
         categoria = request.form["category"]
-        categoria = request.form["code"]
+        
 
         # Subir imagen a Cloudinary
         imagen_file = request.files["image"]
@@ -49,8 +50,8 @@ def add_product():
         # Guardar en DB
         db = conectar_db()
         cursor = db.cursor()
-        sql = "INSERT INTO products (name, description, price, category, main_image,code VALUES (%s, %s, %s, %s, %s,%s)"
-        cursor.execute(sql, (nombre, descripcion, precio, categoria, imagen_url,codigo))
+        sql = "INSERT INTO products (code,name, description, price, category, main_image VALUES (%s, %s, %s, %s, %s,%s)"
+        cursor.execute(sql, (codigo,nombre, descripcion, precio, categoria, imagen_url))
         db.commit()
         cursor.close()
         db.close()
