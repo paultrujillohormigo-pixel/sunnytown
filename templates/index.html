@@ -131,18 +131,19 @@
         }
 
         /* -------------------- GALERÍA -------------------- */
-        .gallery {
-            width: 100%;
-            padding: 0 10px;
-            margin: 80px auto 0 auto;
-            box-sizing: border-box;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            justify-items: center;
-        }
+       /* ---------------- GALERÍA ---------------- */
+.gallery {
+    width: 100%;
+    padding: 0 10px;
+    margin: 80px auto 0 auto;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* más grande y flexible */
+    gap: 25px;
+    justify-items: center;
+}
 
-    .gallery-item {
+.gallery-item {
     background: #ffffff;
     border-radius: 18px;
     overflow: hidden;
@@ -150,45 +151,60 @@
     transition: all .3s ease;
     cursor: pointer;
 
-    /* NUEVO: tamaño fijo */
-    width: 250px;   /* ancho del cuadro */
-    height: 350px;  /* alto total incluyendo imagen + info */
+    width: 280px;       /* ancho más grande */
     display: flex;
     flex-direction: column;
 }
 
 .gallery-item img {
     width: 100%;
-    height: 220px;       /* alto fijo para la imagen */
-    object-fit: cover;   /* recorta lo que sobra para llenar el espacio */
+    height: 280px;      /* hacemos la imagen cuadrada */
+    object-fit: cover;  /* recorta la imagen para llenar el cuadro */
     border-bottom: 1px solid #eee;
+    border-radius: 18px 18px 0 0;
 }
 
 .gallery-item .info {
-    padding: 12px;
+    padding: 14px;
     text-align: center;
-    flex: 1;             /* hace que el espacio restante sea para el texto */
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .gallery-item h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    margin: 0 0 5px 0;
+    margin: 0 0 6px 0;
     color: #111;
 }
 
 .gallery-item .price {
     display: inline-block;
     margin-top: auto;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 500;
     color: #555;
     background: #f6f6f6;
     padding: 6px 14px;
     border-radius: 12px;
+}
+
+/* Ajuste para móviles */
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: 1fr; /* 1 sola columna en móvil */
+    }
+
+    .gallery-item {
+        width: 90%;       /* se adapta al móvil */
+    }
+
+    .gallery-item img {
+        height: auto;     /* mantiene proporción en móvil */
+        aspect-ratio: 1/1; /* fuerza cuadrado en móvil */
+    }
 }
 
 
