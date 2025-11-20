@@ -1,1 +1,13 @@
+<h1>Agregar Venta</h1>
+<form action="{{ url_for('sales.add_sale') }}" method="POST">
+    <label>Producto:</label>
+    <input type="text" name="product" required>
+    
+    <label>Cantidad:</label>
+    <input type="number" name="quantity" required>
+    
+    <label>Precio:</label>
+    <input type="number" name="price" required>
 
+    <button type="submit">Guardar Venta</button>
+</form>
