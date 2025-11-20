@@ -6,7 +6,7 @@ import cloudinary
 import cloudinary.uploader
 
 cloudinary.config(
-    cloudinary_url="cloudinary://667475984668736:FeXuvRmRg_PzdhkyvH2s4Wb9o9M"
+    cloudinary_url="cloudinary://667475984668736:FeXuvRmRg_PzdhkyvH2s4Wb9o9M@dnzkctdej"
 )
 
 app = Flask(__name__)
