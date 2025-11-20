@@ -1,16 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
 import pymysql
-from config import DB_CONFIG
-import os
-import cloudinary
+from flask import Flask, render_template, request, redirect, url_for
 import cloudinary.uploader
+from config import DB_CONFIG
 
+# Configuración de Cloudinary
 cloudinary.config(
-    
     cloud_name="dnzkctdej",
     api_key="667475984668736",
     api_secret="FeXuvRmRg_PzdhkyvH2s4Wb9o9M"
-
 )
 
 app = Flask(__name__)
@@ -26,6 +23,32 @@ def conectar_db():
         cursorclass=pymysql.cursors.DictCursor
     )
 
+# Función para obtener productos (opcional búsqueda)
+def obtener_productos(search=None):
+    db = conectar_db()
+    cursor = db.cursor()
+    if search:
+        sql = """
+        SELECT id, name, description, price, category, main_image
+        FROM products
+        WHERE name LIKE %s OR description LIKE %s
+        """
+        cursor.execute(sql, (f"%{search}%", f"%{search}%"))
+    else:
+        sql = "SELECT id, name, description, price, category, main_image FROM products"
+        cursor.execute(sql)
+    productos = cursor.fetchall()
+    cursor.close()
+    db.close()
+    return productos
+
+# Ruta principal con galería dinámica
+@app.route("/", methods=["GET"])
+def index():
+    search_query = request.args.get("q")
+    productos = obtener_productos(search_query)
+    return render_template("index.html", products=productos, search_query=search_query or "")
+
 # Ruta para subir productos
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
@@ -35,13 +58,11 @@ def add_product():
         precio = float(request.form['price'])
         categoria = request.form['category']
 
-        
         # Subir imagen a Cloudinary
         imagen_file = request.files['image']
         subida = cloudinary.uploader.upload(imagen_file, folder="sunnytown")
         imagen_url = subida["secure_url"]
-      
-        
+
         # Guardar producto en DB
         db = conectar_db()
         cursor = db.cursor()
