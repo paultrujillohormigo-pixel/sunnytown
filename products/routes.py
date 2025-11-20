@@ -97,7 +97,7 @@ def crear_pago():
     amount = float(data.get("amount"))
     title = data.get("title", "Producto")
 
-    sdk = mercadopago.SDK(os.getenv("MP_ACCESS_TOKEN"))
+    sdk = mercadopago.SDK("APP_USR-4062760235903-112018-12059659646503501b5039e406779672-216274319")
 
     preference_data = {
         "items": [{
