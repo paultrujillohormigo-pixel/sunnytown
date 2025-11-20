@@ -15,12 +15,12 @@ button:hover { opacity: 0.9; }
 <body>
 <h2 style="text-align:center;">Agregar Producto Nuevo</h2>
 <form action="{{ url_for('products.add_product') }}" method="POST" enctype="multipart/form-data">
+    <input type="number" name="code" placeholder="Codigo" required>
     <input type="text" name="name" placeholder="Nombre del producto" required>
     <textarea name="description" placeholder="Descripción"></textarea>
     <input type="number" name="price" placeholder="Precio" step="0.01" required>
     <input type="text" name="category" placeholder="Categoría">
     <input type="file" name="image" accept="image/*" required>
-     <input type="number" name="code" placeholder="Codigo" required>
     <button type="submit">Agregar Producto</button>
 </form>
 </body>
