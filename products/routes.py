@@ -50,7 +50,7 @@ def add_product():
         # Guardar en DB
         db = conectar_db()
         cursor = db.cursor()
-        sql = "INSERT INTO products (code,name, description, price, category, main_image VALUES (%s, %s, %s, %s, %s,%s)"
+        sql = "INSERT INTO products (code,name, description, price, category, main_image) VALUES (%s, %s, %s, %s, %s,%s)"
         cursor.execute(sql, (codigo,nombre, descripcion, precio, categoria, imagen_url))
         db.commit()
         cursor.close()
