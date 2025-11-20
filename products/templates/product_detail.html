@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>{{ producto.name }}</title>
+<style>
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+}
+img {
+    max-width: 300px;
+    border-radius: 10px;
+}
+button {
+    background: #28a745;
+    color: #fff;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>{{ producto.name }}</h1>
+    <img src="{{ producto.main_image }}" alt="{{ producto.name }}">
+    <p><strong>Precio:</strong> ${{ producto.price }} MXN</p>
+    <p>{{ producto.description }}</p>
+
+    <button onclick="pagar()">Comprar con Mercado Pago</button>
+
+    <p id="estado"></p>
+</div>
+
+<script>
+function pagar() {
+    const estado = document.getElementById("estado");
+    estado.innerText = "Generando link de pago...";
+
+    fetch("/products/crear_pago", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            product_id: {{ producto.id }},
+            amount: {{ producto.price }},
+            title: "{{ producto.name }}"
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        estado.innerText = "";
+        window.location.href = data.link;  // Redirige al checkout
+    })
+    .catch(err => estado.innerText = "Error generando pago");
+}
+</script>
+</body>
+</html>
