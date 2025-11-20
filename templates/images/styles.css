@@ -1,0 +1,13 @@
+body {
+    font-family: "Georgia", serif;
+    background: linear-gradient(180deg, #9FBEC2, #6D87A3);
+    margin: 0;
+    padding: 0;
+    color: #A7EBC1;
+}
+
+/* Navbar, hero, gallery, botones, etc. */
+.navbar { width: 100%; background: transparent; backdrop-filter: blur(6px); padding: 10px 0; position: absolute; top: 0; z-index: 999; }
+.navbar-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; width: 90%; padding: 0 20px; }
+.nav-left img { width: 200px; height: auto; }
+/* ... todo tu CSS existente ... */
