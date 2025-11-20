@@ -1,94 +1,52 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 import pymysql
 import cloudinary
 import cloudinary.uploader
 from config import DB_CONFIG
 import mercadopago
-import os
-
-
-cloudinary.config(
-    cloud_name="dnzkctdej",
-    api_key="667475984668736",
-    api_secret="FeXuvRmRg_PzdhkyvH2s4Wb9o9M"
-)
-
 
 products_bp = Blueprint("products", __name__, template_folder="templates")
 
-# --- Función para DB ---
-def conectar_db():
+# ==========================
+# CONFIG CLOUDINARY
+# ==========================
+cloudinary.config(
+    cloud_name="dxud6raij",
+    api_key="371919726857367",
+    api_secret="MlGFONo_GAFRUHZdlUVvU1gFzRA",
+    secure=True
+)
+
+# ==========================
+# CONEXIÓN A BD
+# ==========================
+def get_db_connection():
     return pymysql.connect(
         host=DB_CONFIG["host"],
-        port=int(DB_CONFIG["port"]),
         user=DB_CONFIG["user"],
         password=DB_CONFIG["password"],
         database=DB_CONFIG["database"],
         cursorclass=pymysql.cursors.DictCursor
     )
 
-# --- Función que se puede importar desde app.py ---
-def obtener_productos(search=None):
-    db = conectar_db()
-    cursor = db.cursor()
-    if search:
-        sql = "SELECT * FROM products WHERE name LIKE %s OR description LIKE %s"
-        cursor.execute(sql, (f"%{search}%", f"%{search}%"))
-    else:
-        sql = "SELECT * FROM products"
-        cursor.execute(sql)
-    productos = cursor.fetchall()
-    cursor.close()
-    db.close()
-    return productos
 
-# --- Ruta para agregar productos ---
-@products_bp.route("/add", methods=["GET", "POST"])
-def add_product():
-    if request.method == "POST":
-        codigo = request.form["code"]
-        nombre = request.form["name"]
-        descripcion = request.form["description"]
-        precio = float(request.form["price"])
-        categoria = request.form["category"]
+# ==========================
+# LISTADO DE PRODUCTOS
+# ==========================
+@products_bp.route("/")
+def list_products():
+    conn = get_db_connection()
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT * FROM products ORDER BY created_at DESC")
+        products = cursor.fetchall()
+    conn.close()
 
-        # Subir imagen a Cloudinary
-        imagen_file = request.files["image"]
-        subida = cloudinary.uploader.upload(imagen_file, folder="sunnytown")
-        imagen_url = subida["secure_url"]
-
-        # Guardar en DB
-        db = conectar_db()
-        cursor = db.cursor()
-        sql = "INSERT INTO products (code, name, description, price, category, main_image) VALUES (%s, %s, %s, %s, %s, %s)"
-        cursor.execute(sql, (codigo, nombre, descripcion, precio, categoria, imagen_url))
-        db.commit()
-        cursor.close()
-        db.close()
-
-        return redirect(url_for("products.add_product"))
-
-    return render_template("add_product.html")
+    return render_template("products/list.html", products=products)
 
 
-# --- Ruta para ver un producto individual ---
-@products_bp.route("/<int:product_id>")
-def ver_producto(product_id):
-    db = conectar_db()
-    cursor = db.cursor()
-    sql = "SELECT * FROM products WHERE id = %s"
-    cursor.execute(sql, (product_id,))
-    producto = cursor.fetchone()
-    cursor.close()
-    db.close()
-
-    if not producto:
-        return "Producto no encontrado", 404
-
-    return render_template("product_detail.html", producto=producto)
-
-
-# --- Crear cobro Mercado Pago ---
+# ==========================
+# CREAR PREFERENCIA MERCADO PAGO
+# ==========================
 @products_bp.route("/crear_pago", methods=["POST"])
 def crear_pago():
     data = request.get_json()
@@ -97,6 +55,7 @@ def crear_pago():
     amount = float(data.get("amount"))
     title = data.get("title", "Producto")
 
+    # SDK MERCADO PAGO
     sdk = mercadopago.SDK("APP_USR-4062760235903-112018-12059659646503501b5039e406779672-216274319")
 
     preference_data = {
@@ -107,37 +66,68 @@ def crear_pago():
             "currency_id": "MXN"
         }],
         "back_urls": {
-            "success": url_for("products.ver_producto", product_id=product_id, _external=True),
-            "failure": url_for("products.ver_producto", product_id=product_id, _external=True),
-            "pending": url_for("products.ver_producto", product_id=product_id, _external=True)
+            "success": "https://sunnytown-production.up.railway.app/products/pago_exitoso",
+            "failure": "https://sunnytown-production.up.railway.app/products/pago_fallido",
+            "pending": "https://sunnytown-production.up.railway.app/products/pago_pendiente"
         },
+        "notification_url": "https://sunnytown-production.up.railway.app/products/notificacion_mp",
         "auto_return": "approved"
     }
 
     preference = sdk.preference().create(preference_data)
     print("DEBUG MP RESPONSE:", preference)
 
-    # Manejo de error si Mercado Pago no regresa el init_point
     if "response" not in preference or "init_point" not in preference["response"]:
         return {"error": "No se pudo generar el link de pago"}, 400
 
-    link = preference["response"]["init_point"]
-
-    return {"link": link}
+    return {"link": preference["response"]["init_point"]}
 
 
-# --- RUTAS DE RETORNO DE MERCADO PAGO ---
-
+# ==========================
+# CALLBACKS MERCADO PAGO
+# ==========================
 @products_bp.route("/pago_exitoso")
 def pago_exitoso():
-    return render_template("mp_success.html")
-
+    return "Pago exitoso 😎"
 
 @products_bp.route("/pago_fallido")
 def pago_fallido():
-    return render_template("mp_failure.html")
-
+    return "El pago falló ❌"
 
 @products_bp.route("/pago_pendiente")
 def pago_pendiente():
-    return render_template("mp_pending.html")
+    return "Pago pendiente ⏳"
+
+@products_bp.route("/notificacion_mp", methods=["POST"])
+def notificacion_mp():
+    # Mercado Pago manda notificaciones aquí (no necesitas procesarlas ahora)
+    return "OK", 200
+
+
+# ==========================
+# SUBIR PRODUCTO (OPCIONAL)
+# ==========================
+@products_bp.route("/add", methods=["GET", "POST"])
+def add_product():
+    if request.method == "POST":
+        name = request.form["name"]
+        description = request.form["description"]
+        price = request.form["price"]
+        category = request.form["category"]
+
+        image = request.files["image"]
+        result = cloudinary.uploader.upload(image)
+        image_url = result["secure_url"]
+
+        conn = get_db_connection()
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO products (name, description, price, category, main_image)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (name, description, price, category, image_url))
+            conn.commit()
+        conn.close()
+
+        return redirect(url_for("products.list_products"))
+
+    return render_template("products/add.html")
