@@ -66,3 +66,20 @@ def add_product():
         return redirect(url_for("products.add_product"))
 
     return render_template("add_product.html")
+
+
+# --- Ruta para ver un producto individual ---
+@products_bp.route("/<int:product_id>")
+def ver_producto(product_id):
+    db = conectar_db()
+    cursor = db.cursor()
+    sql = "SELECT * FROM products WHERE id = %s"
+    cursor.execute(sql, (product_id,))
+    producto = cursor.fetchone()
+    cursor.close()
+    db.close()
+
+    if not producto:
+        return "Producto no encontrado", 404
+
+    return render_template("product_detail.html", producto=producto)
