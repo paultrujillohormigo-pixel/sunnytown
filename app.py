@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from products.routes import products_bp, obtener_productos
+from products.routes import products_bp
 from sales.routes import sales_bp
 
 app = Flask(__name__)
