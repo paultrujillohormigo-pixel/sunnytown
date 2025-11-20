@@ -318,81 +318,26 @@ h3 {
 </section>
 
     <!-- ---------------------- BUSCADOR ---------------------- -->
-<section class="search-section">
-    <div class="search-container">
-        <input type="text" placeholder="Buscar lentes...">
-        <button><img src="lupa.png" alt="Buscar" /></button>
-    </div>
-</section>
+<form method="get" action="/">
+    <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
+    <button type="submit"><img src="{{ url_for('static', filename='lupa.png') }}" alt="Buscar"></button>
+</form>
     
 <!-- ---------------------- GALERÍA ---------------------- -->
 <section class="gallery">
-
-    <div class="gallery-item">
-    <img src="lentes4.jpg" alt="Lentes modelo X">
-    <div class="info">
-        <h3>Modelo Aurora</h3>
-        <span class="price">$799 MXN</span>
-    </div>
-</div>
-
-    <div class="gallery-item">
-    <img src="lentes4.jpg" alt="Lentes modelo X">
-    <div class="info">
-        <h3>Modelo Aurora</h3>
-        <span class="price">$799 MXN</span>
-    </div>
-</div>
-
-    <div class="gallery-item">
-    <img src="lentes4.jpg" alt="Lentes modelo X">
-    <div class="info">
-        <h3>Modelo Aurora</h3>
-        <span class="price">$799 MXN</span>
-    </div>
-</div>
-
-   <div class="gallery-item">
-    <img src="lentes4.jpg" alt="Lentes modelo X">
-    <div class="info">
-        <h3>Modelo Aurora</h3>
-        <span class="price">$799 MXN</span>
-    </div>
-</div>
-
-    <!-- Extra products -->
-    <div class="gallery-item">
-    <img src="lentes4.jpg" alt="Lentes modelo X">
-    <div class="info">
-        <h3>Modelo Aurora</h3>
-        <span class="price">$799 MXN</span>
-    </div>
-</div>
-
-    <div class="gallery-item">
-    <img src="lentes4.jpg" alt="Lentes modelo X">
-    <div class="info">
-        <h3>Modelo Aurora</h3>
-        <span class="price">$799 MXN</span>
-    </div>
-</div>
-
-    <div class="gallery-item">
-    <img src="lentes4.jpg" alt="Lentes modelo X">
-    <div class="info">
-        <h3>Modelo Aurora</h3>
-        <span class="price">$799 MXN</span>
-    </div>
-</div>
-
-    <div class="gallery-item">
-    <img src="lentes4.jpg" alt="Lentes modelo X">
-    <div class="info">
-        <h3>Modelo Aurora</h3>
-        <span class="price">$799 MXN</span>
-    </div>
-</div>
-
+    {% if products %}
+        {% for product in products %}
+        <div class="gallery-item">
+            <img src="{{ product.main_image }}" alt="{{ product.name }}">
+            <div class="info">
+                <h3>{{ product.name }}</h3>
+                <span class="price">${{ product.price }} MXN</span>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="color:white; text-align:center;">No se encontraron productos.</p>
+    {% endif %}
 </section>
 
 </body>
