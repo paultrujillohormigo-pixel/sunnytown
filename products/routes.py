@@ -3,6 +3,9 @@ import pymysql
 import cloudinary
 import cloudinary.uploader
 from config import DB_CONFIG
+import mercadopago
+import os
+
 
 cloudinary.config(
     cloud_name="dnzkctdej",
@@ -83,3 +86,35 @@ def ver_producto(product_id):
         return "Producto no encontrado", 404
 
     return render_template("product_detail.html", producto=producto)
+
+
+# --- Crear cobro Mercado Pago ---
+@products_bp.route("/crear_pago", methods=["POST"])
+def crear_pago():
+    data = request.get_json()
+
+    product_id = data.get("product_id")
+    amount = float(data.get("amount"))
+    title = data.get("title", "Producto")
+
+    sdk = mercadopago.SDK(os.getenv("MP_ACCESS_TOKEN"))
+
+    preference_data = {
+        "items": [{
+            "title": title,
+            "quantity": 1,
+            "unit_price": amount,
+            "currency_id": "MXN"
+        }],
+        "back_urls": {
+            "success": url_for("products.ver_producto", product_id=product_id, _external=True),
+            "failure": url_for("products.ver_producto", product_id=product_id, _external=True)
+        },
+        "auto_return": "approved"
+    }
+
+    preference = sdk.preference().create(preference_data)
+    link = preference["response"]["init_point"]
+
+    return {"link": link}
+
