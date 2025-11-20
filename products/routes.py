@@ -35,7 +35,7 @@ def obtener_productos(search=None):
 @products_bp.route("/add", methods=["GET", "POST"])
 def add_product():
     if request.method == "POST":
-        codigo = request.form["codigo"]
+        codigo = request.form["code"]
         nombre = request.form["name"]
         descripcion = request.form["description"]
         precio = float(request.form["price"])
@@ -49,7 +49,7 @@ def add_product():
         # Guardar en DB
         db = conectar_db()
         cursor = db.cursor()
-        sql = "INSERT INTO products (codigo, name, description, price, category, main_image) VALUES (%s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO products (code, name, description, price, category, main_image) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor.execute(sql, (codigo, nombre, descripcion, precio, categoria, imagen_url))
         db.commit()
         cursor.close()
