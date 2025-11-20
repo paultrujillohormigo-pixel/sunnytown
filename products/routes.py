@@ -1,7 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 import pymysql
+import cloudinary
 import cloudinary.uploader
 from config import DB_CONFIG
+
+cloudinary.config(
+    cloud_name="dnzkctdej",
+    api_key="667475984668736",
+    api_secret="FeXuvRmRg_PzdhkyvH2s4Wb9o9M"
+)
+
 
 products_bp = Blueprint("products", __name__, template_folder="templates")
 
