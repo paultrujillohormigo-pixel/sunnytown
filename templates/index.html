@@ -1,329 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunny Town - Luxury Sunglasses</title>
-
-    <style>
-/* -------------------- COLORES DEL BANNER -------------------- */
-body {
-    font-family: "Georgia", serif;
-    background: linear-gradient(180deg, #9FBEC2, #6D87A3);
-    margin: 0;
-    padding: 0;
-    color: #A7EBC1;
-}
-
-/* -------------------- NAVBAR -------------------- */
-.navbar {
-    width: 100%;
-    background: transparent;
-    backdrop-filter: blur(6px);
-    padding: 10px 0;
-    position: absolute;
-    top: 0;
-    z-index: 999;
-}
-
-.navbar-container {
-    max-width: 1200px;
-    margin: 0 auto;
-
-    display: flex;
-    align-items: center;
-    width: 90%;
-    padding: 0 20px;
-}
-
-.nav-left img {
-    width: 200px;
-    height: auto;
-}
-        @media (max-width: 480px) {
-    .nav-left img{
-        width: 100px; /* tamaño más pequeño en celular */
-    }
-}
-
-.nav-center-space {
-    flex: 1;
-}
-
-.nav-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    flex: 1;
-}
-
-.nav-right a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    letter-spacing: 2px;
-    font-family: Arial, sans-serif;
-    transition: 0.2s;
-}
-
-.nav-right a:hover {
-    color: #A7EBC1;
-    transform: scale(1.1);
-}
-
-/* -------------------- HERO SECTION -------------------- */
-.hero-section {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    padding: 60px;
-    box-sizing: border-box;
-    overflow: visible;
-    margin-top: -80px; 
-}
-
-.hero-content { 
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.hero-content h1 {
-    font-size: 58px;
-    margin: 0;
-    font-weight: bold;
-    color: white;
-}
-
-.hero-content h2 {
-    font-size: 28px;
-    margin: 0;
-    color: white;
-}
-
-.hero-content button {
-    background: #A7EBC1;
-    color: #2E2A59;
-    border: none;
-    padding: 10px 12px;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.hero-content button:hover {
-    opacity: .8;
-}
-
-.hero-girl {
-    position: absolute;
-    bottom: 0;
-    right: 40px;
-    height: 90%;
-    object-fit: contain;
-    pointer-events: none;
-}
-
-/* -------------------- GALERÍA -------------------- */
-.gallery {
-    width: 100%;
-    padding: 0 10px;
-    margin: 80px auto 0 auto; /* ← top 80px, centrado horizontal */
-    box-sizing: border-box;
-
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    justify-items: center;
-}
-
-.gallery-item {
-    background: #ffffff;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.12); /* 👈 sombra más premium */
-    transition: all .3s ease;
-    cursor: pointer;
-}
-
-.gallery-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 16px 30px rgba(0,0,0,0.16); /* 👈 flotado elegante */
-}
-
-.gallery-item img {
-    width: 100%;
-    object-fit: cover;
-    border-bottom: 1px solid #eee;
-}
-
-.gallery-item .info {
-    padding: 18px 14px;
-    text-align: center;
-}
-
-.gallery-item h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0;
-    letter-spacing: 0.5px;
-    color: #111;
-    font-family: "Poppins", sans-serif;
-}
-
-.gallery-item .price {
-    display: inline-block;
-    margin-top: 6px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #555;
-    background: #f6f6f6;
-    padding: 6px 14px;
-    border-radius: 12px;
-    font-family: "Poppins", sans-serif;
-}
-
-        @media (max-width: 480px) {
-    .gallery {
-        grid-template-columns: 1fr; /* 1 sola columna */
-    }
-}
-
-/* BOTÓN */
-.buy-btn {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #A7EBC1;
-    color: #2E2A59;
-    padding: 10px 30px;
-    border: none;
-    letter-spacing: 1px;
-    cursor: pointer;
-    opacity: 0;
-    transition: .3s ease;
-    border-radius: 6px;
-    font-weight: bold;
-}
-
-.image-container:hover .buy-btn {
-    opacity: 1;
-}
-
-h3 {
-    font-size: 22px;
-    margin: 15px 0 5px;
-    color: #E9FFE9;
-}
-
-.price {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    color: #A7EBC1;
-}
-
-    /* -------------------- BUSCADOR -------------------- */
-.search-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 40px 0; /* espacio elegante entre Hero y galería */
-}
-
-.search-container {
-    position: relative;
-    width: 300px;
-    max-width: 90%;
-}
-
-.search-container input {
-    width: 100%;
-    padding: 12px 40px 12px 16px; /* espacio para el botón de lupa */
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.search-container input:focus {
-    border-color: #A7EBC1;
-    box-shadow: 0 0 10px rgba(167,235,193,0.3);
-}
-
-.search-container button {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 5px;
-}
-
-.search-container button img {
-    width: 24px;
-    height: 24px;
-    opacity: 0.7;
-    transition: opacity 0.3s;
-}
-
-.search-container button img:hover {
-    opacity: 1;
-}
-        
-    </style>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-
 <body>
 
-<!-- ---------------------- NAV ---------------------- -->
+<!-- NAVBAR -->
 <nav class="navbar">
     <div class="navbar-container">
-
         <div class="nav-left">
             <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/logotrans_etugag.png" class="nav-logo" alt="Logo Sunny Town">
         </div>
-
         <div class="nav-center-space"></div>
-
         <div class="nav-right">
             <a href="#home">Inicio</a>
             <a href="#lentes">Lentes</a>
             <a href="#contacto">Contacto</a>
         </div>
-
     </div>
 </nav>
 
-<!-- ---------------------- HERO ---------------------- -->
+<!-- HERO -->
 <section class="hero-section">
     <div class="hero-content">
         <h1>Los mejores lentes de sol</h1>
         <h2>Para tu día a día</h2>
         <button>Comprar ahora</button>
     </div>
-
-    <img src="fotohero.png" class="hero-girl" alt="Modelo con lentes">
+    <img src="{{ url_for('static', filename='images/fotohero.png') }}" class="hero-girl" alt="Modelo con lentes">
 </section>
 
-    <!-- ---------------------- BUSCADOR ---------------------- -->
-<form method="get" action="/">
-    <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
-    <button type="submit"><img src="{{ url_for('static', filename='lupa.png') }}" alt="Buscar"></button>
-</form>
-    
-<!-- ---------------------- GALERÍA ---------------------- -->
+<!-- BUSCADOR -->
+<section class="search-section">
+    <form method="get" action="/">
+        <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
+        <button type="submit">
+            <img src="{{ url_for('static', filename='images/lupa.png') }}" alt="Buscar">
+        </button>
+    </form>
+</section>
+
+<!-- GALERÍA -->
 <section class="gallery">
     {% if products %}
         {% for product in products %}
