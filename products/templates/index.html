@@ -271,7 +271,8 @@
     <section class="gallery">
     {% if products %}
         {% for product in products %}
-        <a href="{{ url_for('products.product_detail', product_id=product.id) }}" style="text-decoration:none; color:inherit;">
+        <a href="{{ url_for('products.ver_producto', product_id=product.id)
+ }}" style="text-decoration:none; color:inherit;">
             <div class="gallery-item">
                 <img src="{{ product.main_image }}" alt="{{ product.name }}">
                 <div class="info">
