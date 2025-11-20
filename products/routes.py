@@ -98,10 +98,7 @@ def crear_pago():
     title = data.get("title", "Producto")
 
     sdk = mercadopago.SDK("APP_USR-4062760235903-112018-12059659646503501b5039e406779672-216274319")
-    
 
-
-    
     preference_data = {
         "items": [{
             "title": title,
@@ -111,14 +108,19 @@ def crear_pago():
         }],
         "back_urls": {
             "success": url_for("products.ver_producto", product_id=product_id, _external=True),
-            "failure": url_for("products.ver_producto", product_id=product_id, _external=True)
+            "failure": url_for("products.ver_producto", product_id=product_id, _external=True),
+            "pending": url_for("products.ver_producto", product_id=product_id, _external=True)
         },
         "auto_return": "approved"
     }
 
     preference = sdk.preference().create(preference_data)
-    print("DEBUG MP RESPONSE:", preference)  # ← Important
+    print("DEBUG MP RESPONSE:", preference)
+
+    # Manejo de error si Mercado Pago no regresa el init_point
+    if "response" not in preference or "init_point" not in preference["response"]:
+        return {"error": "No se pudo generar el link de pago"}, 400
+
     link = preference["response"]["init_point"]
 
     return {"link": link}
-
