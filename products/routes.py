@@ -29,20 +29,14 @@ def get_db_connection():
         cursorclass=pymysql.cursors.DictCursor
     )
 
-
 # ==========================
 # LISTADO DE PRODUCTOS
 # ==========================
 @products_bp.route("/")
 def list_products():
-    conn = get_db_connection()
-    with conn.cursor() as cursor:
-        cursor.execute("SELECT * FROM products ORDER BY created_at DESC")
-        products = cursor.fetchall()
-    conn.close()
-
-    return render_template("products/list.html", products=products)
-
+    search_query = request.args.get("q")
+    productos = obtener_productos(search_query)
+    return render_template("products/list.html", products=productos, search_query=search_query)
 
 # ==========================
 # CREAR PREFERENCIA MERCADO PAGO
@@ -50,12 +44,10 @@ def list_products():
 @products_bp.route("/crear_pago", methods=["POST"])
 def crear_pago():
     data = request.get_json()
-
     product_id = data.get("product_id")
     amount = float(data.get("amount"))
     title = data.get("title", "Producto")
 
-    # SDK MERCADO PAGO
     sdk = mercadopago.SDK("APP_USR-4062760235903-112018-12059659646503501b5039e406779672-216274319")
 
     preference_data = {
@@ -82,7 +74,6 @@ def crear_pago():
 
     return {"link": preference["response"]["init_point"]}
 
-
 # ==========================
 # CALLBACKS MERCADO PAGO
 # ==========================
@@ -102,7 +93,6 @@ def pago_pendiente():
 def notificacion_mp():
     # Mercado Pago manda notificaciones aquí (no necesitas procesarlas ahora)
     return "OK", 200
-
 
 # ==========================
 # SUBIR PRODUCTO (OPCIONAL)
@@ -132,22 +122,21 @@ def add_product():
 
     return render_template("products/add.html")
 
-# --- Función que se puede importar desde app.py ---
+# ==========================
+# FUNCIÓN IMPORTABLE
+# ==========================
 def obtener_productos(search=None):
-    from .routes import conectar_db   # o usa la función que ya tienes
-    db = conectar_db()
+    db = get_db_connection()
     cursor = db.cursor()
     if search:
-        sql = "SELECT * FROM products WHERE name LIKE %s OR description LIKE %s"
+        sql = "SELECT * FROM products WHERE name LIKE %s OR description LIKE %s ORDER BY created_at DESC"
         cursor.execute(sql, (f"%{search}%", f"%{search}%"))
     else:
-        sql = "SELECT * FROM products"
+        sql = "SELECT * FROM products ORDER BY created_at DESC"
         cursor.execute(sql)
     productos = cursor.fetchall()
     cursor.close()
     db.close()
     return productos
 
-
 __all__ = ["products_bp", "obtener_productos"]
-
