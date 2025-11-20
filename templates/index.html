@@ -142,51 +142,55 @@
             justify-items: center;
         }
 
-        .gallery-item {
-            background: #ffffff;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0px 6px 20px rgba(0,0,0,0.12);
-            transition: all .3s ease;
-            cursor: pointer;
-        }
+    .gallery-item {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.12);
+    transition: all .3s ease;
+    cursor: pointer;
 
-        .gallery-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0px 16px 30px rgba(0,0,0,0.16);
-        }
+    /* NUEVO: tamaño fijo */
+    width: 250px;   /* ancho del cuadro */
+    height: 350px;  /* alto total incluyendo imagen + info */
+    display: flex;
+    flex-direction: column;
+}
 
-        .gallery-item img {
-            width: 100%;
-            object-fit: cover;
-            border-bottom: 1px solid #eee;
-        }
+.gallery-item img {
+    width: 100%;
+    height: 220px;       /* alto fijo para la imagen */
+    object-fit: cover;   /* recorta lo que sobra para llenar el espacio */
+    border-bottom: 1px solid #eee;
+}
 
-        .gallery-item .info {
-            padding: 18px 14px;
-            text-align: center;
-        }
+.gallery-item .info {
+    padding: 12px;
+    text-align: center;
+    flex: 1;             /* hace que el espacio restante sea para el texto */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-        .gallery-item h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0;
-            letter-spacing: 0.5px;
-            color: #111;
-            font-family: "Poppins", sans-serif;
-        }
+.gallery-item h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    color: #111;
+}
 
-        .gallery-item .price {
-            display: inline-block;
-            margin-top: 6px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #555;
-            background: #f6f6f6;
-            padding: 6px 14px;
-            border-radius: 12px;
-            font-family: "Poppins", sans-serif;
-        }
+.gallery-item .price {
+    display: inline-block;
+    margin-top: auto;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+    background: #f6f6f6;
+    padding: 6px 14px;
+    border-radius: 12px;
+}
+
 
         @media (max-width: 480px) {
             .gallery {
