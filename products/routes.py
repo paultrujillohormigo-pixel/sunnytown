@@ -148,3 +148,19 @@ def obtener_productos(search=None):
     db.close()
     return productos
 
+__all__ = ["products_bp", "obtener_productos"]
+
+# --- Función que se puede importar desde app.py ---
+def obtener_productos(search=None):
+    db = get_db_connection()
+    cursor = db.cursor()
+    if search:
+        sql = "SELECT * FROM products WHERE name LIKE %s OR description LIKE %s ORDER BY created_at DESC"
+        cursor.execute(sql, (f"%{search}%", f"%{search}%"))
+    else:
+        sql = "SELECT * FROM products ORDER BY created_at DESC"
+        cursor.execute(sql)
+    productos = cursor.fetchall()
+    cursor.close()
+    db.close()
+    return productos
