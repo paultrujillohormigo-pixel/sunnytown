@@ -269,8 +269,9 @@
 
     <!-- GALERÍA -->
     <section class="gallery">
-        {% if products %}
-            {% for product in products %}
+    {% if products %}
+        {% for product in products %}
+        <a href="{{ url_for('products.product_detail', product_id=product.id) }}" style="text-decoration:none; color:inherit;">
             <div class="gallery-item">
                 <img src="{{ product.main_image }}" alt="{{ product.name }}">
                 <div class="info">
@@ -278,10 +279,11 @@
                     <span class="price">${{ product.price }} MXN</span>
                 </div>
             </div>
-            {% endfor %}
-        {% else %}
-            <p style="color:white; text-align:center;">No se encontraron productos.</p>
-        {% endif %}
-    </section>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p style="color:white; text-align:center;">No se encontraron productos.</p>
+    {% endif %}
+</section>
 </body>
 </html>
