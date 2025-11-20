@@ -35,7 +35,7 @@ def obtener_productos(search=None):
 @products_bp.route("/add", methods=["GET", "POST"])
 def add_product():
     if request.method == "POST":
-        categoria = request.form["code"]
+        codigo = request.form["code"]
         nombre = request.form["name"]
         descripcion = request.form["description"]
         precio = float(request.form["price"])
