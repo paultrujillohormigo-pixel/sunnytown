@@ -124,3 +124,20 @@ def crear_pago():
     link = preference["response"]["init_point"]
 
     return {"link": link}
+
+
+# --- RUTAS DE RETORNO DE MERCADO PAGO ---
+
+@products_bp.route("/pago_exitoso")
+def pago_exitoso():
+    return render_template("mp_success.html")
+
+
+@products_bp.route("/pago_fallido")
+def pago_fallido():
+    return render_template("mp_failure.html")
+
+
+@products_bp.route("/pago_pendiente")
+def pago_pendiente():
+    return render_template("mp_pending.html")
