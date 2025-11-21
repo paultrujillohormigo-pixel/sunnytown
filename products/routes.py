@@ -43,6 +43,22 @@ def list_products():
     return render_template("products/list.html", products=products)
 
 # ==========================
+# DETALLE DE PRODUCTO (NECESARIO PARA index.html)
+# ==========================
+@products_bp.route("/product/<int:product_id>")
+def ver_producto(product_id):
+    conn = get_db_connection()
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT * FROM products WHERE id = %s", (product_id,))
+        product = cursor.fetchone()
+    conn.close()
+
+    if not product:
+        return "Producto no encontrado", 404
+
+    return render_template("products/detail.html", product=product)
+
+# ==========================
 # CREAR PREFERENCIA MERCADO PAGO
 # ==========================
 @products_bp.route("/crear_pago", methods=["POST"])
@@ -99,7 +115,7 @@ def notificacion_mp():
     return "OK", 200
 
 # ==========================
-# SUBIR PRODUCTO (OPCIONAL)
+# SUBIR PRODUCTO (FORMULARIO)
 # ==========================
 @products_bp.route("/add", methods=["GET", "POST"])
 def add_product():
@@ -127,17 +143,19 @@ def add_product():
     return render_template("products/add.html")
 
 # ==========================
-# FUNCIÓN IMPORTABLE
+# BUSCADOR (IMPORTABLE)
 # ==========================
 def obtener_productos(search=None):
     db = get_db_connection()
     cursor = db.cursor()
+    
     if search:
         sql = "SELECT * FROM products WHERE name LIKE %s OR description LIKE %s ORDER BY created_at DESC"
         cursor.execute(sql, (f"%{search}%", f"%{search}%"))
     else:
         sql = "SELECT * FROM products ORDER BY created_at DESC"
         cursor.execute(sql)
+
     productos = cursor.fetchall()
     cursor.close()
     db.close()
