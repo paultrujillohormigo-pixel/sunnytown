@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from products.routes import products_bp, obtener_productos
 
 app = Flask(__name__)
-app.register_blueprint(products_bp)
+app.register_blueprint(products_bp, url_prefix="/products")
 
 @app.route("/", methods=["GET"])
 def index():
@@ -17,3 +17,4 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
