@@ -48,7 +48,7 @@ def list_products():
 @products_bp.route("/product/<int:product_id>")
 def ver_producto(product_id):
     conn = get_db_connection()
-    with conn.cursor() as cursor:
+    with conn.cursor(dictionary=True) as cursor:
         cursor.execute("SELECT * FROM products WHERE id = %s", (product_id,))
         product = cursor.fetchone()
     conn.close()
@@ -56,7 +56,7 @@ def ver_producto(product_id):
     if not product:
         return "Producto no encontrado", 404
 
-    return render_template("products/templates/product_detail.html", product=product)
+    return render_template("product_detail.html", product=product)
 
 # ==========================
 # CREAR PREFERENCIA MERCADO PAGO
