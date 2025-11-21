@@ -43,12 +43,12 @@ def list_products():
     return render_template("products/list.html", products=products)
 
 # ==========================
-# DETALLE DE PRODUCTO (NECESARIO PARA index.html)
+# DETALLE DE PRODUCTO
 # ==========================
 @products_bp.route("/product/<int:product_id>")
 def ver_producto(product_id):
     conn = get_db_connection()
-    with conn.cursor(dictionary=True) as cursor:
+    with conn.cursor() as cursor:   # ← FIX: ya no usamos dictionary=True
         cursor.execute("SELECT * FROM products WHERE id = %s", (product_id,))
         product = cursor.fetchone()
     conn.close()
@@ -56,7 +56,8 @@ def ver_producto(product_id):
     if not product:
         return "Producto no encontrado", 404
 
-    return render_template("product_detail.html", product=product)
+    # ← FIX: aseguramos ruta correcta
+    return render_template("products/product_detail.html", product=product)
 
 # ==========================
 # CREAR PREFERENCIA MERCADO PAGO
@@ -115,7 +116,7 @@ def notificacion_mp():
     return "OK", 200
 
 # ==========================
-# SUBIR PRODUCTO (FORMULARIO)
+# AGREGAR PRODUCTO
 # ==========================
 @products_bp.route("/add", methods=["GET", "POST"])
 def add_product():
@@ -140,10 +141,10 @@ def add_product():
 
         return redirect(url_for("products.list_products"))
 
-    return render_template("products/add.html")
+    return render_template("products/add_product.html")   # FIX: nombre correcto
 
 # ==========================
-# BUSCADOR (IMPORTABLE)
+# FUNC. BUSCADOR IMPORTABLE
 # ==========================
 def obtener_productos(search=None):
     db = get_db_connection()
@@ -162,3 +163,4 @@ def obtener_productos(search=None):
     return productos
 
 __all__ = ["products_bp", "obtener_productos"]
+
