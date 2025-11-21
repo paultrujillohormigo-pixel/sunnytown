@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>{{ producto.name }}</title>
+<title>{{ product.name }}</title>
 <style>
 .container {
     max-width: 900px;
@@ -30,13 +30,14 @@ button {
 
 <body>
 <div class="container">
-    <h1>{{ producto.name }}</h1>
-    <img src="{{ producto.main_image }}" alt="{{ producto.name }}">
-    <p><strong>Precio:</strong> ${{ producto.price }} MXN</p>
-    <p>{{ producto.description }}</p>
+    <h1>{{ product.name }}</h1>
+
+    <img src="{{ product.main_image }}" alt="{{ product.name }}">
+
+    <p><strong>Precio:</strong> ${{ product.price }} MXN</p>
+    <p>{{ product.description }}</p>
 
     <button onclick="pagar()">Comprar con Mercado Pago</button>
-
     <p id="estado"></p>
 </div>
 
@@ -47,19 +48,27 @@ function pagar() {
 
     fetch("/products/crear_pago", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-            product_id: {{ producto.id }},
-            amount: {{ producto.price }},
-            title: "{{ producto.name }}"
+            product_id: {{ product.id }},
+            amount: {{ product.price }},
+            title: "{{ product.name }}"
         })
     })
     .then(res => res.json())
     .then(data => {
-        estado.innerText = "";
-        window.location.href = data.link;  // Redirige al checkout
+        if (data.link) {
+            estado.innerText = "";
+            window.location.href = data.link; // Redirect al checkout
+        } else {
+            estado.innerText = "Error generando link de pago";
+        }
     })
-    .catch(err => estado.innerText = "Error generando pago");
+    .catch(err => {
+        estado.innerText = "Error generando pago";
+    });
 }
 </script>
 </body>
