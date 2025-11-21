@@ -20,14 +20,20 @@ cloudinary.config(
 # ==========================
 # CONEXIÓN A BD
 # ==========================
+
 def get_db_connection():
-    return pymysql.connect(
-        host=DB_CONFIG["host"],
-        user=DB_CONFIG["user"],
-        password=DB_CONFIG["password"],
-        database=DB_CONFIG["database"],
-        cursorclass=pymysql.cursors.DictCursor
-    )
+    try:
+        return pymysql.connect(
+            host=DB_CONFIG["host"],
+            user=DB_CONFIG["user"],
+            password=DB_CONFIG["password"],
+            database=DB_CONFIG["database"],
+            cursorclass=pymysql.cursors.DictCursor
+        )
+    except pymysql.MySQLError as e:
+        print("ERROR DB CONNECTION:", e)
+        return None
+
 
 # ==========================
 # LISTADO DE PRODUCTOS
@@ -127,6 +133,9 @@ def add_product():
 # ==========================
 def obtener_productos(search=None):
     db = get_db_connection()
+    if not db:
+        return []  # Si no hay conexión, devuelve lista vacía
+
     cursor = db.cursor()
     if search:
         sql = "SELECT * FROM products WHERE name LIKE %s OR description LIKE %s ORDER BY created_at DESC"
@@ -138,5 +147,6 @@ def obtener_productos(search=None):
     cursor.close()
     db.close()
     return productos
+
 
 __all__ = ["products_bp", "obtener_productos"]
