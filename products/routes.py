@@ -57,7 +57,7 @@ def ver_producto(product_id):
         return "Producto no encontrado", 404
 
     # ← FIX: aseguramos ruta correcta
-    return render_template("products/product_detail.html", product=product)
+    return render_template("product_detail.html", product=product)
 
 # ==========================
 # CREAR PREFERENCIA MERCADO PAGO
