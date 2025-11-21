@@ -11,7 +11,7 @@ def index():
 
     return render_template(
         "index.html",
-        products=productos,        # 👈 EL NOMBRE QUE USA EL HTML
+        products=productos,
         search_query=search_query
     )
 
