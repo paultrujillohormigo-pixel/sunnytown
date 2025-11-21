@@ -2,8 +2,8 @@ import os
 
 
 DB_CONFIG = {
-    "host": "tramway.proxy.rlwy.net",
-    "port": 43803,
+    "host": "mysql-production-6c02.up.railway.app",
+    "port": 3306,
     "user": "root",
     "password": "ojRteBUenESTZqRFTNclOlfYhMQCKSDL",
     "database": "railway"
