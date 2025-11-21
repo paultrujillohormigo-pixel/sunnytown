@@ -107,4 +107,40 @@ def add_product():
         name = request.form["name"]
         description = request.form["description"]
         price = request.form["price"]
-        category =
+        category = request.form["category"]
+
+        image = request.files["image"]
+        result = cloudinary.uploader.upload(image)
+        image_url = result["secure_url"]
+
+        conn = get_db_connection()
+        with conn.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO products (name, description, price, category, main_image)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (name, description, price, category, image_url))
+            conn.commit()
+        conn.close()
+
+        return redirect(url_for("products.list_products"))
+
+    return render_template("products/add.html")
+
+# ==========================
+# FUNCIÓN IMPORTABLE
+# ==========================
+def obtener_productos(search=None):
+    db = get_db_connection()
+    cursor = db.cursor()
+    if search:
+        sql = "SELECT * FROM products WHERE name LIKE %s OR description LIKE %s ORDER BY created_at DESC"
+        cursor.execute(sql, (f"%{search}%", f"%{search}%"))
+    else:
+        sql = "SELECT * FROM products ORDER BY created_at DESC"
+        cursor.execute(sql)
+    productos = cursor.fetchall()
+    cursor.close()
+    db.close()
+    return productos
+
+__all__ = ["products_bp", "obtener_productos"]
