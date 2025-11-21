@@ -141,7 +141,7 @@ def add_product():
 
         return redirect(url_for("products.list_products"))
 
-    return render_template("products/add_product.html")   # FIX: nombre correcto
+    return render_template("add_product.html")   # FIX: nombre correcto
 
 # ==========================
 # FUNC. BUSCADOR IMPORTABLE
