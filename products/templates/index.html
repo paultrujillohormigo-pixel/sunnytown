@@ -210,69 +210,95 @@
         }
 
         /* -------------------- GALERÍA -------------------- */
-        .gallery {
-            width: 100%;
-            padding: 0 10px;
-            margin: 80px auto 0 auto;
-            box-sizing: border-box;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            justify-items: center;
-        }
+       .gallery {
+    width: 100%;
+    padding: 0 10px;
+    margin: 80px auto 0 auto;
+    box-sizing: border-box;
+    display: grid;
+    /* Cambiamos para caber más por fila */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
 
-        .gallery-item {
-            background: #ffffff;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0px 6px 20px rgba(0,0,0,0.12);
-            transition: all .3s ease;
-            cursor: pointer;
-        }
+.gallery-item {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.12);
+    transition: all .3s ease;
+    cursor: pointer;
 
-        .gallery-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0px 16px 30px rgba(0,0,0,0.16);
-        }
+    /* Ajustamos la altura y proporción para que sean más largos y estilizados */
+    width: 100%;
+    max-width: 240px;         /* máximo ancho para que no sean gigantes */
+    /* por ejemplo, altura personalizada */
+    height: auto;             /* que se ajuste al contenido */
+    display: flex;
+    flex-direction: column;
+}
 
-        .gallery-item img {
-            width: 100%;
-            object-fit: cover;
-            border-bottom: 1px solid #eee;
-        }
+.gallery-item img {
+    width: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+    /* altura ajustada para que la imagen sea más “alargada” */
+    height: 180px;
+}
 
-        .gallery-item .info {
-            padding: 18px 14px;
-            text-align: center;
-        }
+.gallery-item .info {
+    padding: 16px 12px;
+    text-align: center;
+    flex: 1; /* para que ocupe lo que queda */
+}
 
-        .gallery-item h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0;
-            letter-spacing: 0.5px;
-            color: #111;
-            font-family: "Poppins", sans-serif;
-        }
+.gallery-item h3 {
+    font-size: 1.0rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.5px;
+    color: #111;
+    font-family: "Poppins", sans-serif;
+}
 
-        .gallery-item .price {
-            display: inline-block;
-            margin-top: 6px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #555;
-            background: #f6f6f6;
-            padding: 6px 14px;
-            border-radius: 12px;
-            font-family: "Poppins", sans-serif;
-        }
+.gallery-item .price {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    background: #f6f6f6;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-family: "Poppins", sans-serif;
+}
 
-        @media (max-width: 480px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-        }
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+    }
 
+    .gallery-item img {
+        height: 140px;
+    }
+
+    .gallery-item h3 {
+        font-size: 0.9rem;
+    }
+
+    .gallery-item .price {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+    }
+}
+
+
+
+
+
+        
         /* -------------------- BUSCADOR -------------------- */
         .search-section {
             width: 100%;
