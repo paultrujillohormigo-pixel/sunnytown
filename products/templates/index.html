@@ -210,75 +210,60 @@
         }
 
         /* -------------------- GALERÍA -------------------- */
-       .gallery {
+      /* GALERÍA */
+.gallery {
     width: 100%;
-    padding: 0 14px;
-    margin: 60px auto 0 auto;
+    padding: 0 20px;
+    margin: 40px auto 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-    gap: 12px; /* menos espacio entre tarjetas */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; /* menos espacio entre tarjetas */
     justify-items: center;
 }
 
+/* TARJETA */
 .gallery-item {
-    background: #ffffff;
-    border-radius: 14px;
+    background: white;
+    border-radius: 16px;
     overflow: hidden;
     width: 100%;
-    max-width: 280px;  /* tarjetas más anchas */
-    height: 360px;     /* ALTURA FIJA → mismo tamaño siempre */
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-    transition: all .25s ease;
+    max-width: 280px;
+    height: 360px; /* MISMO TAMAÑO SIEMPRE */
     display: flex;
     flex-direction: column;
+    box-shadow: 0px 4px 14px rgba(0,0,0,0.12);
+    transition: all .25s ease;
 }
+
+/* IMAGEN: MISMA ALTURA + RECORTE PERFECTO */
 .gallery-item img {
     width: 100%;
-    height: 220px;       /* Fijo */
-    object-fit: cover;   /* recorta sin deformar */
+    height: 200px; /* MISMA ALTURA PARA TODAS */
+    object-fit: cover; /* RECORTE TIPO CATÁLOGO */
     object-position: center;
     border-bottom: 1px solid #eee;
 }
 
+/* INFO */
 .gallery-item .info {
-    padding: 12px;
+    padding: 12px 12px;
     text-align: center;
-    flex: 1;
 }
 
 .gallery-item h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
     margin: 0;
-    color: #111;
 }
 
 .gallery-item .price {
     margin-top: 6px;
-    font-size: 0.9rem;
-    color: #555;
-    background: #f6f6f6;
+    font-size: 0.85rem;
     padding: 6px 12px;
+    background: #f6f6f6;
     border-radius: 10px;
+    display: inline-block;
 }
-
-@media (max-width: 480px) {
-    .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-        gap: 10px;
-    }
-
-    .gallery-item {
-        max-width: 100%;
-        height: 300px;
-    }
-
-    .gallery-item img {
-        height: 170px;
-    }
-}
-
-
-
 
         
         /* -------------------- BUSCADOR -------------------- */
