@@ -6,7 +6,7 @@
     <title>Sunny Town - Luxury Sunglasses</title>
 
     <style>
-        /* -------------------- COLORES DEL BANNER -------------------- */
+        /* -------------------- ESTILOS GENERALES -------------------- */
         body {
             font-family: "Georgia", serif;
             background: linear-gradient(180deg, #9FBEC2, #6D87A3);
@@ -16,176 +16,165 @@
         }
 
         /* -------------------- NAVBAR -------------------- */
-.navbar {
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-    background: #FFFF; 
-    padding: 14px 0;
-}
+        .navbar {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            background: #ffffff;
+            padding: 14px 0;
+            border-bottom: 1px solid #ddd;
+        }
 
-.navbar-container {
-    max-width: 1200px;
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-}
+        .navbar-container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+        }
 
-/* --- BRAND --- */
-.brand {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-}
+        /* --- BRAND --- */
+        .brand {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
 
-.brand-main {
-    font-size: 22px;
-    font-weight: 700;
-    color: #000;
-    letter-spacing: 2px;
-}
+        .brand-main {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #000;
+        }
 
-.brand-sub {
-    font-size: 11px;
-    font-weight: 300;
-    color: #cfcfcf;
-    letter-spacing: 1.5px;
-    margin-top: 2px;
-}
+        .brand-sub {
+            font-size: 11px;
+            font-weight: 300;
+            color: #555;
+            letter-spacing: 1.2px;
+            margin-top: 1px;
+        }
 
-/* --- NAV LINKS (DESKTOP) --- */
-.nav-right {
-    margin-left: auto;
-    display: flex;
-    gap: 24px;
-    padding-right: 10px;
-}
+        /* --- NAV LINKS --- */
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            gap: 24px;
+            padding-right: 10px;
+        }
 
-.nav-right a {
-    font-size: 14px;
-    text-decoration: none;
-    color: #000;
-    letter-spacing: 0.5px;
-    transition: 0.3s ease;
-}
+        .nav-right a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #000;
+            letter-spacing: 0.5px;
+            padding-bottom: 2px;
+            transition: 0.3s ease;
+        }
 
-.nav-right a:hover {
-    color: #fff;
-}
+        .nav-right a:hover {
+            border-bottom: 1px solid #000;
+        }
 
-/* -------- MOBILE ICON (Apple style) -------- */
-.nav-mobile-icon {
-    display: none;
-    flex-direction: column;
-    gap: 4px;
-    cursor: pointer;
-}
+        /* --- MOBILE ICON (Apple) --- */
+        .nav-mobile-icon {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
 
-.nav-mobile-icon span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: #fff;
-    transition: 0.3s ease;
-    border-radius: 20px;
-}
+        .nav-mobile-icon span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #000;
+            border-radius: 20px;
+            transition: 0.3s ease;
+        }
 
-/* ----------- MOBILE MENU HIDDEN ----------- */
-#mobile-menu {
-    transition: all 0.3s ease;
-}
+        /* --- MOBILE MENU HIDDEN --- */
+        #mobile-menu {
+            transition: all 0.3s ease;
+        }
 
-/* ----------- MOBILE RESPONSIVE ----------- */
-@media (max-width: 820px) {
+        /* RESPONSIVE NAVBAR */
+        @media (max-width: 820px) {
+            .nav-mobile-icon {
+                display: flex;
+                margin-left: auto;
+            }
 
-    .nav-mobile-icon {
-        display: flex;
-        margin-left: auto;
-    }
+            .nav-right {
+                position: fixed;
+                top: 60px;
+                right: 0;
+                width: 100%;
+                height: 0;
+                overflow: hidden;
+                background: rgba(0, 0, 0, 0.92);
+                backdrop-filter: blur(8px);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 20px;
+                gap: 24px;
+            }
 
-    .nav-right {
-        position: fixed;
-        top: 60px;
-        right: 0;
-        width: 100%;
-        height: 0;
-        overflow: hidden;
-        background: rgba(0, 0, 0, 0.92);
-        backdrop-filter: blur(8px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 20px;
-        gap: 25px;
-    }
+            .nav-right a {
+                opacity: 0;
+                color: #fff;
+                transform: translateY(-10px);
+                transition: 0.3s ease;
+            }
 
-    .nav-right a {
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: 0.3s ease;
-    }
+            .nav-right.active {
+                height: 230px;
+            }
 
-    /* ACTIVE CLASS */
-    .nav-right.active {
-        height: 220px;
-    }
+            .nav-right.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-    .nav-right.active a {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Burger icon animation */
-    .nav-mobile-icon.active span:nth-child(1) {
-        transform: rotate(45deg) translateY(7px);
-    }
-
-    .nav-mobile-icon.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .nav-mobile-icon.active span:nth-child(3) {
-        transform: rotate(-45deg) translateY(-7px);
-    }
-}
+            /* Burger animation */
+            .nav-mobile-icon.active span:nth-child(1) {
+                transform: rotate(45deg) translateY(7px);
+            }
+            .nav-mobile-icon.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .nav-mobile-icon.active span:nth-child(3) {
+                transform: rotate(-45deg) translateY(-7px);
+            }
+        }
 
         /* -------------------- HERO SECTION -------------------- */
         .hero-section {
             position: relative;
             width: 100%;
             height: 100vh;
-            background: transparent;
             display: flex;
             align-items: center;
             padding: 60px;
             box-sizing: border-box;
-            overflow: visible;
-            margin-top: -80px; 
-        }
-
-        .hero-content { 
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            margin-top: -80px;
         }
 
         .hero-content h1 {
             font-size: 58px;
             margin: 0;
-            font-weight: bold;
-            color: white;
+            color: #fff;
         }
 
         .hero-content h2 {
             font-size: 28px;
             margin: 0;
-            color: white;
+            color: #fff;
         }
 
         .hero-content button {
+            margin-top: 12px;
             background: #A7EBC1;
             color: #2E2A59;
             border: none;
@@ -196,82 +185,78 @@
             font-weight: bold;
         }
 
-        .hero-content button:hover {
-            opacity: .8;
-        }
-
         .hero-girl {
             position: absolute;
             bottom: 0;
             right: 40px;
             height: 90%;
             object-fit: contain;
-            pointer-events: none;
         }
 
-        /* -------------------- GALERÍA -------------------- */
-      /* GALERÍA */
-.gallery {
-    width: 100%;
-    padding: 0 20px;
-    margin: 40px auto 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 14px; /* menos espacio entre tarjetas */
-    justify-items: center;
-}
+        /* -------------------- GALERÍA SUNGLASS HUT STYLE -------------------- */
+        .gallery {
+            width: 100%;
+            padding: 0 20px;
+            margin: 40px auto 60px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px; /* MENOS ESPACIO ENTRE TARJETAS */
+        }
 
-/* TARJETA */
-.gallery-item {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    width: 100%;
-    max-width: 280px;
-    height: 360px; /* MISMO TAMAÑO SIEMPRE */
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 4px 14px rgba(0,0,0,0.12);
-    transition: all .25s ease;
-}
+        /* TARJETA */
+        .gallery-item {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            width: 100%;
+            border: 1px solid #ddd; /* Borde fino estilo SH */
+            display: flex;
+            flex-direction: column;
+            height: 350px;
+            transition: .25s ease;
+        }
 
-/* IMAGEN: MISMA ALTURA + RECORTE PERFECTO */
-.gallery-item img {
-    width: 100%;
-    height: 200px; /* MISMA ALTURA PARA TODAS */
-    object-fit: cover; /* RECORTE TIPO CATÁLOGO */
-    object-position: center;
-    border-bottom: 1px solid #eee;
-}
+        /* HOVER sombra más fuerte */
+        .gallery-item:hover {
+            box-shadow: 0px 8px 25px rgba(0,0,0,0.25);
+        }
 
-/* INFO */
-.gallery-item .info {
-    padding: 12px 12px;
-    text-align: center;
-}
+        /* IMAGEN CUADRADA */
+        .gallery-item img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            object-position: center;
+            background: #fff;
+        }
 
-.gallery-item h3 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin: 0;
-}
+        /* INFO ALINEADA A LA IZQUIERDA */
+        .info {
+            padding: 12px;
+            text-align: left;
+        }
 
-.gallery-item .price {
-    margin-top: 6px;
-    font-size: 0.85rem;
-    padding: 6px 12px;
-    background: #f6f6f6;
-    border-radius: 10px;
-    display: inline-block;
-}
+        .info h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #000;
+        }
 
-        
+        .price {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            color: #000; /* PRECIO EN NEGRO */
+            font-weight: 600;
+            display: inline-block;
+        }
+
         /* -------------------- BUSCADOR -------------------- */
         .search-section {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin: 40px 0;
+            margin-top: 20px;
         }
 
         .search-section input[type="text"] {
@@ -279,33 +264,15 @@
             padding: 12px 40px 12px 16px;
             border-radius: 25px;
             border: 1px solid #ccc;
-            font-size: 16px;
             outline: none;
-        }
-
-        .search-section button {
-            position: relative;
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .search-section button img {
-            width: 24px;
-            height: 24px;
-            opacity: 0.7;
-        }
-
-        .search-section button img:hover {
-            opacity: 1;
+            font-size: 16px;
         }
     </style>
 </head>
 
 <body>
 
-<!--NAV BAR-->
+<!-- NAV -->
 <nav class="navbar">
     <div class="navbar-container">
 
@@ -317,9 +284,7 @@
         </div>
 
         <div class="nav-mobile-icon" id="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
 
         <div class="nav-right" id="mobile-menu">
@@ -331,47 +296,47 @@
     </div>
 </nav>
 
-    <!-- HERO -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Los mejores lentes de sol</h1>
-            <h2>Para tu día a día</h2>
-            <button>Comprar ahora</button>
-        </div>
-        <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763602722/fotohero_ptssew.png" class="hero-girl" alt="Modelo con lentes">
-    </section>
+<!-- HERO -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Los mejores lentes de sol</h1>
+        <h2>Para tu día a día</h2>
+        <button>Comprar ahora</button>
+    </div>
 
-    <!-- BUSCADOR -->
-    <section class="search-section">
-        <form method="get" action="/">
-            <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
-            <button type="submit">
-                <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png" alt="Buscar">
-            </button>
-        </form>
-    </section>
-
-    <!-- GALERÍA -->
-    <section class="gallery">
-    {% if products %}
-        {% for product in products %}
-        <a href="{{ url_for('products.ver_producto', product_id=product.id) }}"
-           style="text-decoration:none; color:inherit;">
-            <div class="gallery-item">
-                <img src="{{ product.main_image }}" alt="{{ product.name }}">
-                <div class="info">
-                    <h3>{{ product.name }}</h3>
-                    <span class="price">${{ product.price }} MXN</span>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-    {% else %}
-        <p style="color:white; text-align:center;">No se encontraron productos.</p>
-    {% endif %}
+    <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763602722/fotohero_ptssew.png" class="hero-girl">
 </section>
 
-<!-- JS para menú Apple -->
+<!-- BUSCADOR -->
+<section class="search-section">
+    <form method="get" action="/">
+        <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
+        <button type="submit">
+            <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png" alt="Buscar">
+        </button>
+    </form>
+</section>
+
+<!-- GALERÍA -->
+<section class="gallery">
+{% if products %}
+    {% for product in products %}
+    <a href="{{ url_for('products.ver_producto', product_id=product.id) }}" style="text-decoration:none; color:inherit;">
+        <div class="gallery-item">
+            <img src="{{ product.main_image }}" alt="{{ product.name }}">
+            <div class="info">
+                <h3>{{ product.name }}</h3>
+                <span class="price">${{ product.price }} MXN</span>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+{% else %}
+    <p style="color:white; text-align:center;">No se encontraron productos.</p>
+{% endif %}
+</section>
+
+<!-- JS MENU -->
 <script>
     const toggle = document.getElementById("mobile-menu-toggle");
     const menu = document.getElementById("mobile-menu");
