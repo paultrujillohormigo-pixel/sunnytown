@@ -251,22 +251,61 @@
             display: inline-block;
         }
 
-        /* -------------------- BUSCADOR -------------------- */
-        .search-section {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
+/* -------------------- BUSCADOR SUNGLASS HUT -------------------- */
+.search-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 10px 0;
+    position: relative;
+}
 
-        .search-section input[type="text"] {
-            width: 30px;
-            padding: 12px 40px 12px 16px;
-            border-radius: 25px;
-            border: 1px solid #ccc;
-            outline: none;
-            font-size: 16px;
-        }
+.search-box {
+    position: relative;
+    width: 320px;
+}
+
+.search-box input[type="text"] {
+    width: 100%;
+    padding: 12px 40px 12px 16px; /* espacio extra para la lupa */
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    background: #fff;
+    outline: none;
+    font-size: 15px;
+    color: #333;
+    transition: 0.2s ease;
+}
+
+/* Animación cuando el input recibe focus */
+.search-box input[type="text"]:focus {
+    border-color: #888;
+    box-shadow: 0px 0px 6px rgba(0,0,0,0.15);
+}
+
+/* Lupa dentro del input */
+.search-box button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search-box button img {
+    width: 18px;   /* tamaño fino */
+    height: 18px;
+    opacity: 0.6;
+    transition: 0.2s ease;
+}
+
+.search-box button img:hover {
+    opacity: 1;
+}
+
     </style>
 </head>
 
@@ -307,15 +346,17 @@
     <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763602722/fotohero_ptssew.png" class="hero-girl">
 </section>
 
-<!-- BUSCADOR -->
+<!-- Buscador -->
+    
 <section class="search-section">
-    <form method="get" action="/">
+    <form method="get" action="/" class="search-box">
         <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
         <button type="submit">
             <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png" alt="Buscar">
         </button>
     </form>
 </section>
+
 
 <!-- GALERÍA -->
 <section class="gallery">
