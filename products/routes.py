@@ -139,10 +139,10 @@ def add_product():
             conn.commit()
         conn.close()
 
-        return render_template("index.html", products=products)
+        return redirect(url_for("products.list_products"))
 
-    return render_template("add_product.html")   # FIX: nombre correcto
-
+    # GET: mostrar formulario
+    return render_template("add_product.html")
 # ==========================
 # FUNC. BUSCADOR IMPORTABLE
 # ==========================
