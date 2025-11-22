@@ -33,14 +33,7 @@
     align-items: center;
 }
 
-        .nav-right {
-    margin-left: auto;
-    display: flex;
-    gap: 24px;
-    padding-right: 10px; /* Se ve más Apple */
-}
-
-/* -------- BRAND -------- */
+/* --- BRAND --- */
 .brand {
     display: flex;
     flex-direction: column;
@@ -62,10 +55,12 @@
     margin-top: 2px;
 }
 
-/* -------- LINKS DESKTOP -------- */
+/* --- NAV LINKS (DESKTOP) --- */
 .nav-right {
+    margin-left: auto;
     display: flex;
-    gap: 30px;
+    gap: 24px;
+    padding-right: 10px;
 }
 
 .nav-right a {
@@ -105,6 +100,11 @@
 /* ----------- MOBILE RESPONSIVE ----------- */
 @media (max-width: 820px) {
 
+    .nav-mobile-icon {
+        display: flex;
+        margin-left: auto;
+    }
+
     .nav-right {
         position: fixed;
         top: 60px;
@@ -121,25 +121,13 @@
         gap: 25px;
     }
 
-    /* hide links initially */
     .nav-right a {
         opacity: 0;
         transform: translateY(-10px);
         transition: 0.3s ease;
     }
 
-    /* show mobile icon */
-    .nav-mobile-icon {
-        display: flex;
-        margin-left: auto;
-    }
-
-    /* hide brand-sub on mobile if you want cleaner look */
-    .brand-sub {
-        font-size: 9px;
-    }
-
-    /* ACTIVE CLASS FOR MENU */
+    /* ACTIVE CLASS */
     .nav-right.active {
         height: 220px;
     }
@@ -149,7 +137,7 @@
         transform: translateY(0);
     }
 
-    /* Apple-like animation for burger icon */
+    /* Burger icon animation */
     .nav-mobile-icon.active span:nth-child(1) {
         transform: rotate(45deg) translateY(7px);
     }
@@ -162,7 +150,6 @@
         transform: rotate(-45deg) translateY(-7px);
     }
 }
-
 
         /* -------------------- HERO SECTION -------------------- */
         .hero-section {
@@ -325,11 +312,10 @@
 
 <body>
 
-    <!--NAV BAR-->
-    <nav class="navbar">
+<!--NAV BAR-->
+<nav class="navbar">
     <div class="navbar-container">
 
-        <!-- LOGO -->
         <div class="nav-left">
             <div class="brand">
                 <span class="brand-main">SUNNY TOWN</span>
@@ -337,14 +323,12 @@
             </div>
         </div>
 
-        <!-- MENU ICON -->
         <div class="nav-mobile-icon" id="mobile-menu-toggle">
             <span></span>
             <span></span>
             <span></span>
         </div>
 
-        <!-- LINKS -->
         <div class="nav-right" id="mobile-menu">
             <a href="#home">Inicio</a>
             <a href="#lentes">Lentes</a>
@@ -353,7 +337,6 @@
 
     </div>
 </nav>
-
 
     <!-- HERO -->
     <section class="hero-section">
@@ -379,8 +362,8 @@
     <section class="gallery">
     {% if products %}
         {% for product in products %}
-        <a href="{{ url_for('products.ver_producto', product_id=product.id)
- }}" style="text-decoration:none; color:inherit;">
+        <a href="{{ url_for('products.ver_producto', product_id=product.id) }}"
+           style="text-decoration:none; color:inherit;">
             <div class="gallery-item">
                 <img src="{{ product.main_image }}" alt="{{ product.name }}">
                 <div class="info">
@@ -394,5 +377,17 @@
         <p style="color:white; text-align:center;">No se encontraron productos.</p>
     {% endif %}
 </section>
+
+<!-- JS para menú Apple -->
+<script>
+    const toggle = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+
+    toggle.addEventListener("click", () => {
+        toggle.classList.toggle("active");
+        menu.classList.toggle("active");
+    });
+</script>
+
 </body>
 </html>
