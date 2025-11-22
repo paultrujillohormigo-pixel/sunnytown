@@ -139,7 +139,7 @@ def add_product():
             conn.commit()
         conn.close()
 
-        return redirect(url_for("products.list_products"))
+        return render_template("index.html", products=products)
 
     return render_template("add_product.html")   # FIX: nombre correcto
 
