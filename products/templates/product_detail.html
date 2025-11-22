@@ -1,75 +1,212 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>{{ product.name }}</title>
-<style>
-.container {
-    max-width: 900px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-}
-img {
-    max-width: 300px;
-    border-radius: 10px;
-}
-button {
-    background: #28a745;
-    color: #fff;
-    padding: 12px 18px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 18px;
-    margin-top: 20px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Sunny Town</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Montserrat", sans-serif;
+            background: #f5f1eb;
+            color: #222;
+        }
+
+        /* -------------------- NAVBAR -------------------- */
+        .navbar {
+            width: 100%;
+            background: transparent;
+            backdrop-filter: blur(6px);
+            padding: 10px 0;
+            position: absolute;
+            top: 0;
+            z-index: 999;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            width: 90%;
+            padding: 0 20px;
+        }
+
+        .nav-left img {
+            width: 200px;
+            height: auto;
+        }
+
+        @media (max-width: 480px) {
+            .nav-left img{
+                width: 100px;
+            }
+        }
+
+        .nav-center-space {
+            flex: 1;
+        }
+
+        .nav-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex: 1;
+        }
+
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            letter-spacing: 2px;
+            font-family: Arial, sans-serif;
+            transition: 0.2s;
+        }
+
+        .nav-right a:hover {
+            color: #A7EBC1;
+            transform: scale(1.1);
+        }
+
+        /* -------------------- PRODUCTO -------------------- */
+        .container {
+            max-width: 1200px;
+            margin: 140px auto 50px auto; /* deja espacio para el navbar */
+            padding: 0 20px;
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+        }
+
+        .product-image {
+            width: 48%;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0px 6px 25px rgba(0,0,0,0.25);
+        }
+
+        .product-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .info {
+            width: 48%;
+        }
+
+        .info h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .info p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .price {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 25px;
+            color: #b22222;
+        }
+
+        .btn-buy {
+            margin-top: 35px;
+            background: black;
+            color: white;
+            padding: 18px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 22px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-buy:hover {
+            background: #333;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 860px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .product-image, .info {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-<div class="container">
-    <h1>{{ product.name }}</h1>
 
-    <img src="{{ product.main_image }}" alt="{{ product.name }}">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="nav-left">
+                <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/logotrans_etugag.png" class="nav-logo" alt="Logo Sunny Town">
+            </div>
+            <div class="nav-center-space"></div>
+            <div class="nav-right">
+                <a href="/#home">Inicio</a>
+                <a href="/#lentes">Lentes</a>
+                <a href="/#contacto">Contacto</a>
+            </div>
+        </div>
+    </nav>
 
-    <p><strong>Precio:</strong> ${{ product.price }} MXN</p>
-    <p>{{ product.description }}</p>
+    <!-- PRODUCTO -->
+    <div class="container">
 
-    <button onclick="pagar()">Comprar con Mercado Pago</button>
-    <p id="estado"></p>
-</div>
+        <!-- IMAGEN DEL PRODUCTO -->
+        <div class="product-image">
+            <img src="{{ product.main_image }}" alt="{{ product.name }}">
+        </div>
 
-<script>
-function pagar() {
-    const estado = document.getElementById("estado");
-    estado.innerText = "Generando link de pago...";
+        <!-- INFORMACIÓN -->
+        <div class="info">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description }}</p>
 
-    fetch("/products/crear_pago", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            product_id: {{ product.id }},
-            amount: {{ product.price }},
-            title: "{{ product.name }}"
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.link) {
-            estado.innerText = "";
-            window.location.href = data.link; // Redirect al checkout
-        } else {
-            estado.innerText = "Error generando link de pago";
+            <div class="price">$ {{ product.price }}</div>
+
+            <button 
+                class="btn-buy"
+                onclick="comprar({{ product.id }}, {{ product.price }}, '{{ product.name }}')"
+            >
+                Comprar con Mercado Pago
+            </button>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT MERCADO PAGO -->
+    <script>
+        function comprar(id, price, title) {
+            fetch("/products/crear_pago", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    product_id: id,
+                    amount: price,
+                    title: title
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.link) {
+                    window.location.href = data.link;
+                } else {
+                    alert("Error al generar el link de pago");
+                }
+            });
         }
-    })
-    .catch(err => {
-        estado.innerText = "Error generando pago";
-    });
-}
-</script>
+    </script>
+
 </body>
 </html>
