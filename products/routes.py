@@ -11,7 +11,7 @@ products_bp = Blueprint("products", __name__, template_folder="templates")
 # CONFIG CLOUDINARY
 # ==========================
 cloudinary.config(
-    cloud_name="Untitled",
+    cloud_name="dnzkctdej",
     api_key="667475984668736",
     api_secret="FeXuvRmRg_PzdhkyvH2s4Wb9o9M",
     
