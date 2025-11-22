@@ -5,6 +5,9 @@ import cloudinary.uploader
 from config import DB_CONFIG
 import mercadopago
 
+# ==========================
+# BLUEPRINT
+# ==========================
 products_bp = Blueprint("products", __name__, template_folder="templates")
 
 # ==========================
@@ -14,7 +17,7 @@ cloudinary.config(
     cloud_name="dnzkctdej",
     api_key="667475984668736",
     api_secret="FeXuvRmRg_PzdhkyvH2s4Wb9o9M",
-    
+    secure=True
 )
 
 # ==========================
@@ -40,7 +43,8 @@ def list_products():
         products = cursor.fetchall()
     conn.close()
 
-    return render_template("products/list.html", products=products)
+    # USAMOS index.html porque ES EL ARCHIVO QUE EXISTE
+    return render_template("index.html", products=products)
 
 # ==========================
 # DETALLE DE PRODUCTO
@@ -48,7 +52,7 @@ def list_products():
 @products_bp.route("/product/<int:product_id>")
 def ver_producto(product_id):
     conn = get_db_connection()
-    with conn.cursor() as cursor:   # ← FIX: ya no usamos dictionary=True
+    with conn.cursor() as cursor:
         cursor.execute("SELECT * FROM products WHERE id = %s", (product_id,))
         product = cursor.fetchone()
     conn.close()
@@ -56,7 +60,6 @@ def ver_producto(product_id):
     if not product:
         return "Producto no encontrado", 404
 
-    # ← FIX: aseguramos ruta correcta
     return render_template("product_detail.html", product=product)
 
 # ==========================
@@ -70,7 +73,9 @@ def crear_pago():
     amount = float(data.get("amount"))
     title = data.get("title", "Producto")
 
-    sdk = mercadopago.SDK("APP_USR-4062760235903-112018-12059659646503501b5039e406779672-216274319")
+    sdk = mercadopago.SDK(
+        "APP_USR-4062760235903-112018-12059659646503501b5039e406779672-216274319"
+    )
 
     preference_data = {
         "items": [{
@@ -89,7 +94,6 @@ def crear_pago():
     }
 
     preference = sdk.preference().create(preference_data)
-    print("DEBUG MP RESPONSE:", preference)
 
     if "response" not in preference or "init_point" not in preference["response"]:
         return {"error": "No se pudo generar el link de pago"}, 400
@@ -101,15 +105,15 @@ def crear_pago():
 # ==========================
 @products_bp.route("/pago_exitoso")
 def pago_exitoso():
-    return "Pago exitoso 😎"
+    return render_template("mp_success.html")
 
 @products_bp.route("/pago_fallido")
 def pago_fallido():
-    return "El pago falló ❌"
+    return render_template("mp_failure.html")
 
 @products_bp.route("/pago_pendiente")
 def pago_pendiente():
-    return "Pago pendiente ⏳"
+    return render_template("mp_pending.html")
 
 @products_bp.route("/notificacion_mp", methods=["POST"])
 def notificacion_mp():
@@ -141,10 +145,10 @@ def add_product():
 
         return redirect(url_for("products.list_products"))
 
-    # GET: mostrar formulario
     return render_template("add_product.html")
+
 # ==========================
-# FUNC. BUSCADOR IMPORTABLE
+# BUSCADOR IMPORTABLE
 # ==========================
 def obtener_productos(search=None):
     db = get_db_connection()
@@ -163,4 +167,3 @@ def obtener_productos(search=None):
     return productos
 
 __all__ = ["products_bp", "obtener_productos"]
-
