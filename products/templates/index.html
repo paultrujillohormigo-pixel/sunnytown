@@ -17,7 +17,7 @@
 
         /* -------------------- NAVBAR -------------------- */
         .navbar {
-            width: 100%; /* NAVBAR 100% REAL, NO SE CORTA */
+            width: 100%;
             position: sticky;
             top: 0;
             z-index: 9999;
@@ -27,350 +27,139 @@
         }
 
         .navbar-container {
-          max-width: 1400px;
-    width: 96%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* ← ESTA ES LA CLAVE */
-        }
-
-        /* --- BRAND --- */
-        .brand {
+            max-width: 1400px;
+            width: 96%;
+            margin: 0 auto;
             display: flex;
-            flex-direction: column;
-            line-height: 1.1;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .brand-main {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #000;
-        }
+        .brand { display: flex; flex-direction: column; line-height: 1.1; }
+        .brand-main { font-size: 22px; font-weight: 700; letter-spacing: 2px; color: #000; }
+        .brand-sub { font-size: 11px; font-weight: 300; color: #555; letter-spacing: 1.2px; }
 
-        .brand-sub {
-            font-size: 11px;
-            font-weight: 300;
-            color: #555;
-            letter-spacing: 1.2px;
-        }
-
-        /* NAV LINKS */
         .nav-right {
             margin-left: auto;
             display: flex;
             gap: 28px;
-            padding-right: 0;
         }
 
         .nav-right a {
             font-size: 14px;
             text-decoration: none;
             color: #000;
-            letter-spacing: 0.5px;
             padding-bottom: 2px;
             transition: 0.3s ease;
         }
 
-        .nav-right a:hover {
-            border-bottom: 1px solid #000;
-        }
+        .nav-right a:hover { border-bottom: 1px solid #000; }
 
-        /* MOBILE ICON */
-        .nav-mobile-icon {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            cursor: pointer;
-        }
-
-        .nav-mobile-icon span {
-            display: block;
-            width: 20px;
-            height: 2px;
-            background: #000;
-            border-radius: 20px;
-            transition: 0.3s ease;
-        }
-
-        /* MOBILE MENU */
-        #mobile-menu {
-            transition: all 0.3s ease;
-        }
+        .nav-mobile-icon { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+        .nav-mobile-icon span { display: block; width: 20px; height: 2px; background: #000; border-radius: 20px; }
 
         @media (max-width: 820px) {
-            .nav-mobile-icon {
-                display: flex;
-                margin-left: auto;
+            .nav-mobile-icon { display: flex; margin-left: auto; }
+            .nav-right { 
+                position: fixed; top: 60px; right: 0; width: 100%; height: 0; 
+                background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(8px);
+                flex-direction: column; align-items: center; overflow: hidden; padding-top: 20px; gap: 24px;
             }
-
-            .nav-right {
-                position: fixed;
-                top: 60px;
-                right: 0;
-                width: 100%;
-                height: 0;
-                overflow: hidden;
-                background: rgba(0, 0, 0, 0.92);
-                backdrop-filter: blur(8px);
-                flex-direction: column;
-                align-items: center;
-                padding-top: 20px;
-                gap: 24px;
-            }
-
-            .nav-right a {
-                opacity: 0;
-                color: #fff;
-                transform: translateY(-10px);
-            }
-
-            .nav-right.active {
-                height: 230px;
-            }
-
-            .nav-right.active a {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            .nav-mobile-icon.active span:nth-child(1) {
-                transform: rotate(45deg) translateY(7px);
-            }
-            .nav-mobile-icon.active span:nth-child(2) { opacity: 0; }
-            .nav-mobile-icon.active span:nth-child(3) {
-                transform: rotate(-45deg) translateY(-7px);
-            }
+            .nav-right a { color: #fff; opacity: 0; transform: translateY(-10px); }
+            .nav-right.active { height: 230px; }
+            .nav-right.active a { opacity: 1; transform: translateY(0); }
         }
 
-   
+        /* -------------------- HERO SLIDER -------------------- */
+        .hero-slider {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
 
+        .slides-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
 
-        /* -------------------- SEARCH (SUNGLASS HUT STYLE) -------------------- */
-        .search-section {
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.9s ease-in-out;
+        }
+
+        .slide.active { opacity: 1; }
+
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.25);
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50%;
+            font-size: 32px;
+            cursor: pointer;
+            color: #fff;
+            z-index: 20;
+            transition: 0.25s ease;
+        }
+
+        .arrow:hover { background: rgba(255,255,255,0.45); }
+        .left { left: 20px; }
+        .right { right: 20px; }
+
+        .indicators {
+            position: absolute;
+            bottom: 24px;
             width: 100%;
             display: flex;
             justify-content: center;
-            margin: 40px 0 20px 0;
-            position: relative;
+            gap: 8px;
+            z-index: 20;
         }
 
-        .search-box {
-            position: relative;
-            width: 320px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 40px 12px 16px;
-            border-radius: 30px;
-            border: 1px solid #ccc;
-            background: #fff;
-            font-size: 15px;
-            color: #333;
-            transition: 0.2s ease;
-        }
-
-        .search-box input:focus {
-            border-color: #888;
-            box-shadow: 0px 0px 6px rgba(0,0,0,0.15);
-        }
-
-        .search-box button {
-            border: none;
-            background: none;
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
             cursor: pointer;
-            padding: 0;
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
+            transition: 0.25s ease;
         }
 
-        .search-box button img {
-            width: 18px;
-            height: 18px;
-            opacity: 0.6;
-            transition: 0.2s ease;
-        }
+        .dot.active { background: white; transform: scale(1.15); }
 
-        .search-box button img:hover {
-            opacity: 1;
+        /* -------------------- SEARCH -------------------- */
+        .search-section { width: 100%; display: flex; justify-content: center; margin: 40px 0 20px; }
+        .search-box { width: 320px; position: relative; }
+        .search-box input {
+            width: 100%; padding: 12px 40px 12px 16px; border-radius: 30px; border: 1px solid #ccc;
         }
+        .search-box button { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; }
 
-        /* -------------------- GALERÍA SUNGLASS HUT STYLE -------------------- */
+        /* -------------------- GALERÍA -------------------- */
         .gallery {
-            width: 100%;
-            padding: 0 20px;
-            margin: 20px auto 60px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
+            width: 100%; padding: 0 20px; margin: 20px auto 60px; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 10px;
         }
-
-        .gallery-item {
-            background: #fff;
-            border-radius: 14px;
-            overflow: hidden;
-            width: 100%;
-            border: 1px solid #ddd;
-            display: flex;
-            flex-direction: column;
-            height: 350px;
-            transition: .25s ease;
-        }
-
-        .gallery-item:hover {
-            box-shadow: 0px 8px 25px rgba(0,0,0,0.25);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 230px;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        .info {
-            padding: 12px;
-            text-align: left;
-        }
-
-        .info h3 {
-            margin: 0;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .price {
-            margin-top: 6px;
-            font-size: 0.9rem;
-            color: #000;
-            font-weight: 600;
-        }
-
-
-        /* -------------------- Hero Slider -------------------- */
-/* ---------- HERO SLIDER ---------- */
-.hero-slider {
-    width: 100%;
-    height: 600px; /* AJUSTA LA ALTURA DEL BANNER */
-    position: relative;
-    overflow: hidden;
-    background: #000; /* evitar huecos si la imagen no llena */
-}
-
-/* Contenedor de slides */
-.slides-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-/* Cada slide */
-.slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.9s ease-in-out;
-}
-
-.slide.active {
-    opacity: 1;
-}
-
-/* Imagen del slide */
-.slide-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* QUE LA IMAGEN LLENE Y SE VEA BONITA */
-    object-position: center;
-}
-
-/* Texto dentro del hero */
-.hero-content {
-    position: absolute;
-    top: 25%;
-    left: 6%;
-    color: white;
-    max-width: 40%;
-    z-index: 10;
-}
-
-.hero-content h1 {
-    font-size: 58px;
-    margin: 0;
-}
-
-.hero-content h2 {
-    font-size: 28px;
-    margin-top: 10px;
-}
-
-.hero-content button {
-    margin-top: 18px;
-    background: #A7EBC1;
-    color: #2E2A59;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 17px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* Flechas */
-.arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.25);
-    border: none;
-    padding: 12px 16px;
-    border-radius: 50%;
-    font-size: 32px;
-    cursor: pointer;
-    color: #fff;
-    transition: 0.25s ease;
-    z-index: 20;
-}
-
-.arrow:hover {
-    background: rgba(255,255,255,0.45);
-}
-
-.left { left: 20px; }
-.right { right: 20px; }
-
-/* Dots abajo */
-.indicators {
-    position: absolute;
-    bottom: 24px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    z-index: 20;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    background: rgba(255,255,255,0.6);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.25s ease;
-}
-
-.dot.active {
-    background: white;
-    transform: scale(1.15);
-}
-
-
+        .gallery-item { background: #fff; border-radius: 14px; border: 1px solid #ddd; overflow: hidden; }
+        .gallery-item img { width: 100%; height: 230px; object-fit: cover; }
+        .info { padding: 12px; }
+        .info h3 { margin: 0; color: #000; }
+        .price { margin-top: 6px; color: #000; font-weight: 600; }
     </style>
 </head>
 
@@ -379,12 +168,9 @@
 <!-- NAV -->
 <nav class="navbar">
     <div class="navbar-container">
-
-        <div class="nav-left">
-            <div class="brand">
-                <span class="brand-main">SUNNY TOWN</span>
-                <span class="brand-sub">Luxury Sunglasses</span>
-            </div>
+        <div class="brand">
+            <span class="brand-main">SUNNY TOWN</span>
+            <span class="brand-sub">Luxury Sunglasses</span>
         </div>
 
         <div class="nav-mobile-icon" id="mobile-menu-toggle">
@@ -396,147 +182,106 @@
             <a href="#lentes">Lentes</a>
             <a href="#contacto">Contacto</a>
         </div>
-
     </div>
 </nav>
 
-
 <!-- HERO SLIDER -->
 <section class="hero-slider">
-
     <div class="slides-container">
 
-        <!-- Slide 1 -->
         <div class="slide active">
-            <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763857967/banner_4k_16_9_i9c5jh.png">
-            </div>
+            <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763857967/banner_4k_16_9_i9c5jh.png" class="slide-img">
         </div>
 
-        <!-- Slide 2 -->
         <div class="slide">
             <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763602722/fotohero_ptssew.png" class="slide-img">
-            <div class="hero-content">
-                <h1>Estilo y Elegancia</h1>
-                <h2>Descubre tu nuevo look</h2>
-                <button>Comprar ahora</button>
-            </div>
         </div>
 
-        <!-- Slide 3 -->
         <div class="slide">
             <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763858742/cdd8fda0-79bc-4f1f-9167-709feba21ae7_jtvon9.png" class="slide-img">
-            <div class="hero-content">
-                <h1>Protección Premium</h1>
-                <h2>Para cualquier ocasión</h2>
-                <button>Comprar ahora</button>
-            </div>
         </div>
 
-        <!-- Flechas -->
         <button class="arrow left" id="prevSlide">&#10094;</button>
         <button class="arrow right" id="nextSlide">&#10095;</button>
     </div>
 
-    <!-- Indicadores -->
     <div class="indicators">
         <span class="dot active"></span>
         <span class="dot"></span>
         <span class="dot"></span>
     </div>
-
 </section>
-
 
 <!-- SEARCH -->
 <section class="search-section">
     <form method="get" action="/" class="search-box">
         <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
-        <button type="submit">
-            <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png" alt="Buscar">
-        </button>
+        <button type="submit"><img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png"></button>
     </form>
 </section>
 
 <!-- GALERÍA -->
 <section class="gallery">
 {% if products %}
-    {% for product in products %}
-    <a href="{{ url_for('products.ver_producto', product_id=product.id) }}" style="text-decoration:none; color:inherit;">
-        <div class="gallery-item">
-            <img src="{{ product.main_image }}" alt="{{ product.name }}">
-            <div class="info">
-                <h3>{{ product.name }}</h3>
-                <span class="price">${{ product.price }} MXN</span>
-            </div>
+{% for product in products %}
+<a href="{{ url_for('products.ver_producto', product_id=product.id) }}">
+    <div class="gallery-item">
+        <img src="{{ product.main_image }}">
+        <div class="info">
+            <h3>{{ product.name }}</h3>
+            <span class="price">${{ product.price }} MXN</span>
         </div>
-    </a>
-    {% endfor %}
+    </div>
+</a>
+{% endfor %}
 {% else %}
-    <p style="color:white; text-align:center;">No se encontraron productos.</p>
+<p style="text-align:center;color:white;">No se encontraron productos.</p>
 {% endif %}
 </section>
 
 <!-- JS MENU -->
-<!-- JS MENU -->
 <script>
-    const toggle = document.getElementById("mobile-menu-toggle");
-    const menu = document.getElementById("mobile-menu");
+const toggle = document.getElementById("mobile-menu-toggle");
+const menu = document.getElementById("mobile-menu");
 
-    toggle.addEventListener("click", () => {
-        toggle.classList.toggle("active");
-        menu.classList.toggle("active");
-    });
+toggle.addEventListener("click", () => {
+    toggle.classList.toggle("active");
+    menu.classList.toggle("active");
+});
 </script>
 
 <!-- JS SLIDER -->
 <script>
-    let slideIndex = 0;
-    const slides = document.querySelectorAll(".slide");
-    const dots = document.querySelectorAll(".dot");
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
 
-    function showSlide(index) {
-        slides.forEach(s => s.classList.remove("active"));
-        dots.forEach(d => d.classList.remove("active"));
+function showSlide(i) {
+    slides.forEach((s) => s.classList.remove("active"));
+    dots.forEach((d) => d.classList.remove("active"));
+    slides[i].classList.add("active");
+    dots[i].classList.add("active");
+}
 
-        slides[index].classList.add("active");
-        dots[index].classList.add("active");
-    }
+function nextSlide() {
+    slideIndex = (slideIndex + 1) % slides.length;
+    showSlide(slideIndex);
+}
 
-    function nextSlide() {
-        slideIndex = (slideIndex + 1) % slides.length;
-        showSlide(slideIndex);
-    }
+function prevSlide() {
+    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+    showSlide(slideIndex);
+}
 
-    function prevSlide() {
-        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-        showSlide(slideIndex);
-    }
+let autoPlay = setInterval(nextSlide, 5000);
 
-    // Auto cambio cada 5s
-    let autoPlay = setInterval(nextSlide, 5000);
+document.getElementById("nextSlide").onclick = () => { nextSlide(); clearInterval(autoPlay); };
+document.getElementById("prevSlide").onclick = () => { prevSlide(); clearInterval(autoPlay); };
 
-    document.getElementById("nextSlide").addEventListener("click", () => {
-        nextSlide();
-        clearInterval(autoPlay);
-    });
-
-    document.getElementById("prevSlide").addEventListener("click", () => {
-        prevSlide();
-        clearInterval(autoPlay);
-    });
-
-    dots.forEach((dot, i) => {
-        dot.addEventListener("click", () => {
-            slideIndex = i;
-            showSlide(i);
-            clearInterval(autoPlay);
-        });
-    });
+dots.forEach((dot, index) => {
+    dot.onclick = () => { slideIndex = index; showSlide(index); clearInterval(autoPlay); };
+});
 </script>
-
-</body>
-</html>
-
 
 </body>
 </html>
