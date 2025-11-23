@@ -14,7 +14,7 @@
             padding: 0;
             color: #A7EBC1;
         }
-x
+
         /* -------------------- NAVBAR -------------------- */
         .navbar {
             width: 100%;
@@ -35,9 +35,10 @@ x
             justify-content: space-between;
         }
 
-        .brand { display: flex; flex-direction: column; line-height: 1.1; }
-        .brand-main { font-size: 22px; font-weight: 700; letter-spacing: 2px; color: #000; }
-        .brand-sub { font-size: 11px; font-weight: 300; color: #555; letter-spacing: 1.2px; }
+        .nav-logo {
+            height: 70px;
+            width: auto;
+        }
 
         .nav-right {
             margin-left: auto;
@@ -53,21 +54,60 @@ x
             transition: 0.3s ease;
         }
 
-        .nav-right a:hover { border-bottom: 1px solid #000; }
+        .nav-right a:hover {
+            border-bottom: 1px solid #000;
+        }
 
-        .nav-mobile-icon { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
-        .nav-mobile-icon span { display: block; width: 20px; height: 2px; background: #000; border-radius: 20px; }
+        .nav-mobile-icon {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-mobile-icon span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #000;
+            border-radius: 20px;
+        }
 
         @media (max-width: 820px) {
-            .nav-mobile-icon { display: flex; margin-left: auto; }
-            .nav-right { 
-                position: fixed; top: 60px; right: 0; width: 100%; height: 0; 
-                background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(8px);
-                flex-direction: column; align-items: center; overflow: hidden; padding-top: 20px; gap: 24px;
+            .nav-mobile-icon {
+                display: flex;
+                margin-left: auto;
             }
-            .nav-right a { color: #fff; opacity: 0; transform: translateY(-10px); }
-            .nav-right.active { height: 230px; }
-            .nav-right.active a { opacity: 1; transform: translateY(0); }
+
+            .nav-right {
+                position: fixed;
+                top: 60px;
+                right: 0;
+                width: 100%;
+                height: 0;
+                background: rgba(0, 0, 0, 0.92);
+                backdrop-filter: blur(8px);
+                flex-direction: column;
+                align-items: center;
+                overflow: hidden;
+                padding-top: 20px;
+                gap: 24px;
+            }
+
+            .nav-right a {
+                color: #fff;
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            .nav-right.active {
+                height: 230px;
+            }
+
+            .nav-right.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* -------------------- HERO SLIDER -------------------- */
@@ -93,83 +133,128 @@ x
             transition: opacity 0.9s ease-in-out;
         }
 
-        .slide.active { opacity: 1; }
-
-     .slide-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;     /* <- LLENA TODO */
-    object-position: center; /* <- CENTRADA */
-}
-
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.25);
-            border: none;
-            padding: 12px 16px;
-            border-radius: 50%;
-            font-size: 32px;
-            cursor: pointer;
-            color: #fff;
-            z-index: 20;
-            transition: 0.25s ease;
+        .slide.active {
+            opacity: 1;
         }
 
-        .arrow:hover { background: rgba(255,255,255,0.45); }
-        .left { left: 20px; }
-        .right { right: 20px; }
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
 
-        .indicators {
-            position: absolute;
-            bottom: 24px;
+        /* -------------------- SEARCH -------------------- */
+        .search-section {
             width: 100%;
             display: flex;
             justify-content: center;
-            gap: 8px;
-            z-index: 20;
+            margin: 40px 0 20px;
         }
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            background: rgba(255,255,255,0.6);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.25s ease;
+        .search-box {
+            width: 320px;
+            position: relative;
         }
 
-        .dot.active { background: white; transform: scale(1.15); }
-
-        /* -------------------- SEARCH -------------------- */
-        .search-section { width: 100%; display: flex; justify-content: center; margin: 40px 0 20px; }
-        .search-box { width: 320px; position: relative; }
         .search-box input {
-            width: 100%; padding: 12px 40px 12px 16px; border-radius: 30px; border: 1px solid #ccc;
+            width: 100%;
+            padding: 12px 40px 12px 16px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
         }
-        .search-box button { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; }
+
+        .search-icon {
+            width: 18px !important;
+            height: 18px !important;
+            object-fit: contain !important;
+        }
 
         /* -------------------- GALERÍA -------------------- */
         .gallery {
-            width: 100%; padding: 0 20px; margin: 20px auto 60px; 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 10px;
+            width: 100%;
+            padding: 0 20px;
+            margin: 20px auto 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+            gap: 10px;
         }
-        .gallery-item { background: #fff; border-radius: 14px; border: 1px solid #ddd; overflow: hidden; }
-        .gallery-item img { width: 100%; height: 230px; object-fit: cover; }
-        .info { padding: 12px; }
-        .info h3 { margin: 0; color: #000; }
-        .price { margin-top: 6px; color: #000; font-weight: 600; }
-        .search-icon {
-    width: 18px !important;
-    height: 18px !important;
-    object-fit: contain !important;
-}
-        .nav-logo {
-    height: 70px;
-    width: auto;
-}
 
+        .gallery-item {
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid #ddd;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .info {
+            padding: 12px;
+        }
+
+        .info h3 {
+            margin: 0;
+            color: #000;
+        }
+
+        .price {
+            margin-top: 6px;
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* =====================================================
+                  SOLO 6 ITEMS EN ESCRITORIO
+        ======================================================*/
+        @media (min-width: 821px) {
+            .gallery a:nth-child(n+7) {
+                display: none !important;
+            }
+        }
+
+        /* =====================================================
+                MODO CELULAR: 2 COLUMNAS + CUADRADOS + SIN HERO
+        ======================================================*/
+        @media (max-width: 820px) {
+
+            .hero-slider,
+            .search-section {
+                display: none !important;
+            }
+
+            /* Solo 6 productos */
+            .gallery a:nth-child(n+7) {
+                display: none !important;
+            }
+
+            .gallery {
+                margin-top: 20px !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 14px !important;
+            }
+
+            .gallery-item {
+                aspect-ratio: 1 / 1 !important;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .gallery-item img {
+                width: 100%;
+                height: 60%;
+                object-fit: cover !important;
+            }
+
+            .info {
+                text-align: center;
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 
@@ -178,9 +263,9 @@ x
 <!-- NAV -->
 <nav class="navbar">
     <div class="navbar-container">
-        <div class="brand">
-            <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763865120/logoletraspng_y2vlnt.png" class="nav-logo" alt="Logo Sunny Town">
-        </div>
+        
+        <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763865120/logoletraspng_y2vlnt.png"
+             class="nav-logo" alt="Logo Sunny Town">
 
         <div class="nav-mobile-icon" id="mobile-menu-toggle">
             <span></span><span></span><span></span>
@@ -194,12 +279,12 @@ x
     </div>
 </nav>
 
-<!-- HERO SLIDER -->
+<!-- HERO SLIDER (OCULTO EN CELULAR) -->
 <section class="hero-slider">
     <div class="slides-container">
 
         <div class="slide active">
-            <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763861472/Largo_web_cvpitp.png"class="slide-img">
+            <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763861472/Largo_web_cvpitp.png" class="slide-img">
         </div>
 
         <div class="slide">
@@ -210,23 +295,16 @@ x
             <img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763858742/cdd8fda0-79bc-4f1f-9167-709feba21ae7_jtvon9.png" class="slide-img">
         </div>
 
-        <button class="arrow left" id="prevSlide">&#10094;</button>
-        <button class="arrow right" id="nextSlide">&#10095;</button>
-    </div>
-
-    <div class="indicators">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
     </div>
 </section>
 
-<!-- SEARCH -->
+<!-- SEARCH (OCULTO EN CELULAR) -->
 <section class="search-section">
     <form method="get" action="/" class="search-box">
         <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
-        <button type="submit"><img class="search-icon" src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png">
-</button>
+        <button type="submit">
+            <img class="search-icon" src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png">
+        </button>
     </form>
 </section>
 
@@ -255,41 +333,7 @@ const toggle = document.getElementById("mobile-menu-toggle");
 const menu = document.getElementById("mobile-menu");
 
 toggle.addEventListener("click", () => {
-    toggle.classList.toggle("active");
     menu.classList.toggle("active");
-});
-</script>
-
-<!-- JS SLIDER -->
-<script>
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
-const dots = document.querySelectorAll(".dot");
-
-function showSlide(i) {
-    slides.forEach((s) => s.classList.remove("active"));
-    dots.forEach((d) => d.classList.remove("active"));
-    slides[i].classList.add("active");
-    dots[i].classList.add("active");
-}
-
-function nextSlide() {
-    slideIndex = (slideIndex + 1) % slides.length;
-    showSlide(slideIndex);
-}
-
-function prevSlide() {
-    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-    showSlide(slideIndex);
-}
-
-let autoPlay = setInterval(nextSlide, 5000);
-
-document.getElementById("nextSlide").onclick = () => { nextSlide(); clearInterval(autoPlay); };
-document.getElementById("prevSlide").onclick = () => { prevSlide(); clearInterval(autoPlay); };
-
-dots.forEach((dot, index) => {
-    dot.onclick = () => { slideIndex = index; showSlide(index); clearInterval(autoPlay); };
 });
 </script>
 
