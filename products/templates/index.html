@@ -160,6 +160,12 @@
         .info { padding: 12px; }
         .info h3 { margin: 0; color: #000; }
         .price { margin-top: 6px; color: #000; font-weight: 600; }
+        .search-icon {
+    width: 18px !important;
+    height: 18px !important;
+    object-fit: contain !important;
+}
+
     </style>
 </head>
 
@@ -216,7 +222,8 @@
 <section class="search-section">
     <form method="get" action="/" class="search-box">
         <input type="text" name="q" placeholder="Buscar lentes..." value="{{ search_query }}">
-        <button type="submit"><img src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png"></button>
+        <button type="submit"><img class="search-icon" src="https://res.cloudinary.com/dnzkctdej/image/upload/v1763601816/lupa_wlrhzn.png">
+</button>
     </form>
 </section>
 
